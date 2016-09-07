@@ -31,7 +31,7 @@ app.use(passport.session());
 var router = express.Router();
 
 router.get('/', function(req, res) {
-    res.json({ message: 'YEAH! CONNECTED TO MY .... :D!' });
+    res.json({ message: 'YEAH! CONNECTED TO MY HARDCORE SERVER ! :D!' });
 });
 
 app.use('/api', router);
