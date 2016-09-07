@@ -15,21 +15,26 @@ var cookieParser    = require('cookie-parser');
 var port = process.env.PORT || 8080;
 var ip = '92.222.94.185';
 
-app.set('views', __dirname + '/public');
-app.set('view engine', 'html');
-
 
 app.use(morgan('dev'));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
 app.use(session({secret: 'appsecret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(multer({ dest: __dirname + '/public/img/article/' }));
+
+var router = express.Router();
+
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });
+});
+
+app.use('/api', router);
 
 /** Router 
 require('./app/routes')(app, passport);
