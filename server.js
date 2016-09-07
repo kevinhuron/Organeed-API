@@ -12,7 +12,7 @@ var cookieParser    = require('cookie-parser');
 /** Config DB file **/
 //var db = require('./config/db') ;
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 var ip = '92.222.94.185';
 
 
@@ -40,7 +40,7 @@ app.use('/api', router);
 require('./app/routes')(app, passport);
 **/
 
-/** Start APP at http://92.222.94.185:8080 **/
+/** Start APP at http://92.222.94.185:80 **/
 app.listen(port, ip);
 console.log('CONNECTED sur le port ' + port);
 exports = module.exports = app;
