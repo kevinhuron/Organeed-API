@@ -31,7 +31,7 @@ app.use(passport.session());
 var router = express.Router();
 
 router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
+    res.json({ message: 'YEAH! CONNECTED TO MY .... :D!' });
 });
 
 app.use('/api', router);
