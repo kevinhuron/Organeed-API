@@ -49,7 +49,7 @@ REST.prototype.configureExpress = function(connection) {
     app.use(bodyParser.json());
     var router = express.Router();
     app.use('/api', router);
-    var rest_router = new rest(router,connection,bcrypt);
+    var rest_router = new route(router,connection,bcrypt);
     self.startServer();
 };
 
