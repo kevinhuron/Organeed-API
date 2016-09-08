@@ -9,7 +9,7 @@ var multer  	    = require('multer');
 var methodOverride  = require('method-override');
 var cookieParser    = require('cookie-parser');
 var bcrypt          = require('bcrypt');
-var route           = require('APP/ROUTE/route.js');
+var route           = require('./APP/ROUTE/route.js');
 
 /** Config DB file **/
 //var db = require('./config/db') ;
