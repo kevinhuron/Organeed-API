@@ -8,7 +8,7 @@ function REST_ROUTER(router,connection,bcrypt) {
 
 REST_ROUTER.prototype.handleRoutes= function(router,connection,bcrypt) {
     router.get("/",function(req,res){
-        res.json({"Message" : "Hello World !"});
+        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER"});
     })
 };
 
