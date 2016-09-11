@@ -4,7 +4,7 @@
 var mysql   = require("mysql");
 var bcrypt  = require('bcrypt-nodejs');
 
-function Todo() {
+function User() {
     /** generate hash password **/
     this.generateHash = function(password) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
@@ -19,7 +19,7 @@ function Todo() {
         var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
         var table = [
             "USERS","first_name","last_name","email","password",
-            req.query.f_name,req.query.l_name,req.query.email,bcrypt.generateHash(req.query.password)
+            req.query.f_name,req.query.l_name,req.query.email,this.generateHash(req.query.password)
         ];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
