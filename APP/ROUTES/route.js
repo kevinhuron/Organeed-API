@@ -13,14 +13,14 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,bcrypt) {
     });
     router.post("/new/user",function(req,res){
         console.log(req);
-        console.log(req.body.f_name);
-        console.log(req.body.l_name);
-        console.log(req.body.email);
-        console.log(req.body.password);
+        console.log(req.query.f_name);
+        console.log(req.query.l_name);
+        console.log(req.query.email);
+        console.log(req.query.password);
         var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
         var table = [
             "USERS","first_name","last_name","email","password",
-            req.body.f_name,req.body.l_name,req.body.email,bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null)
+            req.query.f_name,req.query.l_name,req.query.email,bcrypt.hashSync(req.query.password, bcrypt.genSaltSync(10), null)
         ];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
