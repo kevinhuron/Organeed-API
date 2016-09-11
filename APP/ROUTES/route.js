@@ -3,23 +3,20 @@
  */
 var mysql   = require("mysql");
 var bcrypt  = require('bcrypt-nodejs');
+var users   = require('../MODELS/users');
 
 function REST_ROUTER(router,connection,bcrypt) {
     var self = this;
     self.handleRoutes(router,connection,bcrypt);
 }
 
-REST_ROUTER.prototype.handleRoutes= function(router,connection,bcrypt) {
+REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
     router.get("/",function(req,res){
         res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER"});
     });
-    router.post("/new/user",function(req,res){
-        console.log(req);
-        console.log(req.query.f_name);
-        console.log(req.query.l_name);
-        console.log(req.query.email);
-        console.log(req.query.password);
-        var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
+    router.post("/new/user",function(req,res,connection){
+        users.create(req,res,connection);
+        /*var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
         var table = [
             "USERS","first_name","last_name","email","password",
             req.query.f_name,req.query.l_name,req.query.email,bcrypt.hashSync(req.query.password, bcrypt.genSaltSync(10), null)
@@ -31,7 +28,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,bcrypt) {
             } else {
                 res.json({"Error" : false, "Message" : "User Added !"});
             }
-        });
+        });*/
     });
     router.post("/new/event",function(req,res){
         var query = "INSERT INTO ??(??,??) VALUES (?,?)";
