@@ -2,21 +2,10 @@
  * Created by kevinhuron on 11/09/2016.
  */
 var mysql   = require("mysql");
-var bcrypt  = require('bcrypt-nodejs');
 
-function User() {
-    /** generate hash password **/
-    this.generateHash = function(password) {
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-    };
-
-    /** checking if password is valid **/
-    /*this.validPassword = function(password) {
-        return bcrypt.compareSync(password, this.local.passwd);
-    };*/
-
-    // TODO régler le problème de HASH du password qui ne se fait pas....
-    this.create = function(req, res, connection) {
+function Event() {
+    //TODO faire la requete insertion event;
+    /*this.create = function(req, res, connection) {
         var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
         var table = [
             "USERS","first_name","last_name","email","password",
@@ -30,6 +19,6 @@ function User() {
                 res.json({"Error" : false, "Message" : "User Added !"});
             }
         });
-    };
+    };*/
 }
-module.exports = new User();
+module.exports = new Event();

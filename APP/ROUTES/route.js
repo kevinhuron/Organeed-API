@@ -4,6 +4,7 @@
 var mysql   = require("mysql");
 var bcrypt  = require('bcrypt-nodejs');
 var users   = require('../MODELS/users');
+var event   = require('../MODELS/events');
 
 function REST_ROUTER(router,connection,bcrypt) {
     var self = this;
@@ -16,31 +17,9 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
     });
     router.post("/new/user",function(req,res){
         users.create(req,res,connection);
-        /*var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
-        var table = [
-            "USERS","first_name","last_name","email","password",
-            req.query.f_name,req.query.l_name,req.query.email,bcrypt.hashSync(req.query.password, bcrypt.genSaltSync(10), null)
-        ];
-        query = mysql.format(query,table);
-        connection.query(query,function(err,rows){
-            if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query = " + err});
-            } else {
-                res.json({"Error" : false, "Message" : "User Added !"});
-            }
-        });*/
     });
     router.post("/new/event",function(req,res){
-        var query = "INSERT INTO ??(??,??) VALUES (?,?)";
-        var table = ["EVENTS","user_email","user_password",req.body.email,md5(req.body.password)];
-        query = mysql.format(query,table);
-        connection.query(query,function(err,rows){
-            if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
-            } else {
-                res.json({"Error" : false, "Message" : "Event Added !"});
-            }
-        });
+        event.create(req,res,connection);
     });
 };
 
