@@ -12,6 +12,10 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,bcrypt) {
         res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER"});
     });
     router.post("/new/user",function(req,res){
+        console.log(req.body.f_name);
+        console.log(req.body.l_name);
+        console.log(req.body.email);
+        console.log(req.body.password);
         var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
         var table = [
             "USERS","first_name","last_name","email","password",
