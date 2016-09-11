@@ -10,7 +10,7 @@ var methodOverride  = require('method-override');
 var cookieParser    = require('cookie-parser');
 var bcrypt          = require('bcrypt');
 var mysql           = require("mysql");
-var route           = require('./APP/ROUTE/route.js');
+var route           = require('./APP/ROUTES/route.js');
 
 /** Config DB file **/
 //var db = require('./config/db') ;
