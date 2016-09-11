@@ -17,5 +17,8 @@
   "multer": "^1.2.0",
   "mysql": "^2.11.1",
   "passport": "^0.3.2",
-  "passport-localapikey": "0.0.3"
+  "passport-localapikey": "0.0.3",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3"
+  }
 }
