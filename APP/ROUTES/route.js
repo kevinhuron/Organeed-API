@@ -1,6 +1,7 @@
 /**
  * Created by kevinhuron on 11/09/2016.
  */
+var mysql = require("mysql");
 function REST_ROUTER(router,connection,bcrypt) {
     var self = this;
     self.handleRoutes(router,connection,bcrypt);
