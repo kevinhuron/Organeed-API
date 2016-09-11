@@ -11,9 +11,9 @@ function User() {
     };
 
     /** checking if password is valid **/
-    this.validPassword = function(password) {
+    /*this.validPassword = function(password) {
         return bcrypt.compareSync(password, this.local.passwd);
-    };
+    };*/
 
     this.create = function(req, res, connection) {
         var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
