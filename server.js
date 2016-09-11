@@ -54,8 +54,9 @@ REST.prototype.configureExpress = function(connection) {
 };
 
 REST.prototype.startServer = function() {
-    app.listen(port, ip);
-    console.log("CONNECTED sur le port " + port);
+    app.listen(port, ip, function(){
+        console.log("CONNECTED sur le port " + port);
+    });
 };
 
 REST.prototype.stop = function(err) {
