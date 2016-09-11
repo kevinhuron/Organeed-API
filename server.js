@@ -15,7 +15,7 @@ var route           = require('./APP/ROUTE/route.js');
 /** Config DB file **/
 //var db = require('./config/db') ;
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 80;
 var ip = '92.222.94.185';
 
 function REST(){
