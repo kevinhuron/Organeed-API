@@ -20,7 +20,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection,bcrypt) {
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+                res.json({"Error" : true, "Message" : "Error executing MySQL query = " + err});
             } else {
                 res.json({"Error" : false, "Message" : "User Added !"});
             }
