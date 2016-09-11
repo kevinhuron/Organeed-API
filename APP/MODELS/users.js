@@ -31,4 +31,4 @@ function User() {
         });
     };
 }
-module.exports = new Todo();
+module.exports = new User();
