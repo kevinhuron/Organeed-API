@@ -23,7 +23,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
     });
     router.get("/get/event",function(req,res){
         event.get(req,res,connection, 3);
-    })
+    });
 };
 
 module.exports = REST_ROUTER;

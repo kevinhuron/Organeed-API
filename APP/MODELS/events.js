@@ -29,7 +29,7 @@ function Event() {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query = " + err});
             } else {
-                res.json({"Error" : false, "Message" : "Event get !", "row" : row});
+                res.json({"Error" : false, "Message" : "Event get !", "row" : rows});
             }
         });
     };
