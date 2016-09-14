@@ -41,17 +41,14 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(methodOverride('X-HTTP-Method-Override'));
 //app.use(express.static(__dirname + '/public'));
-app.use(session({secret: 'appsecret'}));
+//app.use(session({secret: 'appsecret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(multer({ dest: __dirname + '/public/img/article/' }));
 
 var router = express.Router();
 
-/*router.get('/', function(req, res) {
- res.json({ message: 'WE YEAH! CONNECTED TO MY HARDCORE SERVER !kukjqdbhfbehjbrfhsvzj :D!' });
- });*/
-require('./APP/CONFIG/passport')(passport);
+//require('./APP/CONFIG/passport')(passport);
 app.use('/api', router);
 
 /** ROUTER **/
