@@ -33,7 +33,7 @@ sequelize.authenticate().then(function(err) {
 }, function (err) {
     console.log('Unable to connect to the database:', err);
 });
-require('./APP/CONFIG/passport')(passport);
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 //app.use(bodyParser.json());
@@ -51,7 +51,7 @@ var router = express.Router();
 /*router.get('/', function(req, res) {
  res.json({ message: 'WE YEAH! CONNECTED TO MY HARDCORE SERVER !kukjqdbhfbehjbrfhsvzj :D!' });
  });*/
-
+require('./APP/CONFIG/passport')(passport);
 app.use('/api', router);
 
 /** ROUTER **/
