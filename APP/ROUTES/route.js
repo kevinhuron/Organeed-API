@@ -2,7 +2,7 @@
  * Created by kevinhuron on 11/09/2016.
  */
 var mysql   = require("mysql");
-var User = require('./APP/MODEL/users');
+var User = require('./APP/MODELS/users');
 var bcrypt   = require('bcrypt-nodejs');
 //var multer  = require('multer');
 var moment  = require('moment');
