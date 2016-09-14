@@ -21,6 +21,9 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
     router.post("/new/event",function(req,res){
         event.create(req,res,connection);
     });
+    router.post("/get/event",function(req,res){
+        event.get(req,res,connection, 1);
+    });
 };
 
 module.exports = REST_ROUTER;
