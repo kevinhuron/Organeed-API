@@ -18,7 +18,7 @@ function User() {
         var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
         var table = [
             "USERS","first_name","last_name","email","password",
-            req.query.f_name,req.query.l_name,req.query.email,User.generateHash(req.query.password)
+            req.query.f_name,req.query.l_name,req.query.email,myuser.generateHash(req.query.password)
         ];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -31,7 +31,7 @@ function User() {
     };
 }
 module.exports = new User();
-
-User.generateHash = function(password) {
+myuser = new User();
+myuser.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
