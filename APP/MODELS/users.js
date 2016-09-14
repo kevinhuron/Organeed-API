@@ -5,7 +5,7 @@ var Sequelize   = require('sequelize');
 var mysql       = require("mysql");
 var bcrypt      = require('bcrypt-nodejs');
 
-var User = sequelize.define('user', {
+var users = sequelize.define('users', {
     local               : {
         last_name       : {type: Sequelize.STRING, allowNull: false} ,
         first_name      : {type: Sequelize.STRING, allowNull: false},
@@ -24,16 +24,16 @@ var User = sequelize.define('user', {
     }
 });
 
-User.methods.generateHash = function(password) {
+users.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // checking if password is valid
-User.methods.validPassword = function(password) {
+users.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.passwd);
 };
 
-module.exports = User;
+module.exports = users;
 
 
 
