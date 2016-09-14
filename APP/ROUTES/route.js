@@ -2,13 +2,14 @@
  * Created by kevinhuron on 11/09/2016.
  */
 var mysql   = require("mysql");
-var bcrypt  = require('bcrypt-nodejs');
-var users   = require('../MODELS/users');
-var event   = require('../MODELS/events');
-
-function REST_ROUTER(router,connection,bcrypt) {
+var User = require('./APP/MODEL/users');
+var bcrypt   = require('bcrypt-nodejs');
+//var multer  = require('multer');
+var moment  = require('moment');
+//moment.locale('fr');
+/*function REST_ROUTER(router,connection,bcrypt, passport) {
     var self = this;
-    self.handleRoutes(router,connection,bcrypt);
+    self.handleRoutes(router,connection,bcrypt, passport);
 }
 
 REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
@@ -26,4 +27,25 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
     });
 };
 
-module.exports = REST_ROUTER;
+module.exports = REST_ROUTER;*/
+
+module.exports = function(app, passport) {
+
+    app.get("/",function(req,res){
+        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER"});
+    });
+
+    app.post('/blog', function(req, res) {
+        //var offset = 0;
+        //.skip(parseInt(offset)).limit(9).exec(
+        Articles.find().sort([['idA', -1]]).exec(function(err, articles) {
+            if (err) {
+                res.send(err);
+                console.log(err);
+            }
+            res.json({ articles: articles, user: req.user});
+        });
+    });
+
+
+};
