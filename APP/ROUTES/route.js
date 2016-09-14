@@ -32,7 +32,7 @@ module.exports = REST_ROUTER;*/
 module.exports = function(app, passport) {
 
     app.get("/",function(req,res){
-        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER"});
+        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better"});
     });
 
     app.post('/blog', function(req, res) {
