@@ -2,7 +2,7 @@
  * Created by kevinhuron on 11/09/2016.
  */
 var mysql   = require("mysql");
-var User = require('./APP/MODELS/users');
+var User = require('./MODELS/users');
 var bcrypt   = require('bcrypt-nodejs');
 //var multer  = require('multer');
 var moment  = require('moment');
@@ -38,13 +38,13 @@ module.exports = function(app, passport) {
     app.post('/blog', function(req, res) {
         //var offset = 0;
         //.skip(parseInt(offset)).limit(9).exec(
-        Articles.find().sort([['idA', -1]]).exec(function(err, articles) {
+        /*Articles.find().sort([['idA', -1]]).exec(function(err, articles) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
             res.json({ articles: articles, user: req.user});
-        });
+        });*/
     });
 
 

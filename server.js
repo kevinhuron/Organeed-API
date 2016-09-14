@@ -56,7 +56,7 @@ require('./APP/ROUTES/route')(app, passport);
 
 /** Start APP at http://92.222.94.185:80 **/
 app.listen(port, ip);
-console.log('CONNECTED sur le port ' + port);
+console.log('SERVER CONNECTED sur le port ' + port);
 exports = module.exports = app;
 /*function REST(){
     var self = this;
