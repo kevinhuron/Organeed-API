@@ -6,9 +6,12 @@ var bcrypt  = require('bcrypt-nodejs');
 
 function User() {
     /** generate hash password **/
-
+    this.generateHash = function(password) {
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    };
 
     /** checking if password is valid **/
+    // TODO faire cette function
     /*this.validPassword = function(password) {
         return bcrypt.compareSync(password, this.local.passwd);
     };*/
@@ -18,7 +21,7 @@ function User() {
         var query = "INSERT INTO ??(??,??,??,??) VALUES (?,?,?,?)";
         var table = [
             "USERS","first_name","last_name","email","password",
-            req.query.f_name,req.query.l_name,req.query.email,myuser.generateHash(req.query.password)
+            req.query.f_name,req.query.l_name,req.query.email,this.generateHash(req.query.password)
         ];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -31,7 +34,3 @@ function User() {
     };
 }
 module.exports = new User();
-myuser = new User();
-myuser.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
-};
