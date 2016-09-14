@@ -8,7 +8,9 @@ function User() {
     /** generate hash password **/
     this.generateHash = function(password) {
         bcrypt.genSalt(10, function(err, salt) {
-            return bcrypt.hash(password, salt);
+            bcrypt.hash(password, salt, function(err, hash) {
+                return hash;
+            });
         });
         //return bcrypt.hash(password, bcrypt.genSalt(8), null);
     };
