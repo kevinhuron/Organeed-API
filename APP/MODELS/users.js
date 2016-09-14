@@ -5,7 +5,7 @@ var Sequelize   = require('sequelize');
 var mysql       = require("mysql");
 var bcrypt      = require('bcrypt-nodejs');
 
-var users = Sequelize.define('users', {
+var users = this.sequelize.define('users', {
     local               : {
         last_name       : {type: Sequelize.STRING, allowNull: false} ,
         first_name      : {type: Sequelize.STRING, allowNull: false},
