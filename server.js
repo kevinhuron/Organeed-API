@@ -28,12 +28,10 @@ var port = process.env.PORT || 80;
 var ip = '92.222.94.185';
 
 /** CHECK BDD CONNECTION **/
-sequelize.authenticate().complete(function (err) {
-    if (err) {
-        console.log('EROOR : NO CONNECTION = ' + err);
-    } else {
-        console.log('CONNECTION BDD OK');
-    }
+sequelize.authenticate().then(function(err) {
+    console.log('Connection has been established successfully.');
+}, function (err) {
+    console.log('Unable to connect to the database:', err);
 });
 require('./APP/CONFIG/passport')(passport);
 app.use(morgan('dev'));
