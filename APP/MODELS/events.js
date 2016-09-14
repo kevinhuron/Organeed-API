@@ -20,9 +20,9 @@ function Event() {
         });
     };
     this.get = function(req, res, connection, id) {
-        var query = "SELECT * FROM ?? WHERE id_manager = ?";
+        var query = "SELECT * FROM ?? WHERE id_manager = ? LIMIT ?,? ";
         var table = [
-            "EVENTS",id
+            "EVENTS",id,parseInt(req.params.ranges),parseInt(req.params.rangef)
         ];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){

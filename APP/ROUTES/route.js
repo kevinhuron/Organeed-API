@@ -22,7 +22,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
     router.post("/new/event",function(req,res){
         event.create(req,res,connection);
     });
-    router.get("/get/event",function(req,res){
+    router.get("/get/event/:ranges/:rangef",function(req,res){
         event.get(req,res,connection, 3);
     });
 };
