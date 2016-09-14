@@ -7,7 +7,12 @@ var bcrypt  = require('bcrypt-nodejs');
 function User() {
     /** generate hash password **/
     this.generateHash = function(password) {
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(password, salt, function(err, hash) {
+                return hash;
+            });
+        });
+        //return bcrypt.hash(password, bcrypt.genSalt(8), null);
     };
 
     /** checking if password is valid **/
