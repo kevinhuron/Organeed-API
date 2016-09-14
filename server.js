@@ -58,6 +58,7 @@ require('./APP/ROUTES/route')(app, passport);
 app.listen(port, ip);
 console.log('SERVER CONNECTED sur le port ' + port);
 exports = module.exports = app;
+module.exports(sequelize);
 /*function REST(){
     var self = this;
     self.connectMysql();
