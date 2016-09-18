@@ -11,18 +11,11 @@ var cookieParser    = require('cookie-parser');
 var bcrypt          = require('bcrypt-nodejs');
 var mysql           = require("mysql");
 //var route           = require('./APP/ROUTES/route.js');
-var Sequelize       = require("sequelize");
+//var Sequelize       = require("sequelize");
 
 
-/** CONFIG DB FILE **/
-var db = require('./APP/CONFIG/db');
 
-/** SETTING UP BDD CONFIG **/
-var sequelize = new Sequelize(db.dbname, db.dbusername, db.mdp, {
-    host: db.host,
-    port: 3306,
-    dialect: 'mysql'
-});
+var sequelize = require('./APP/CONFIG/dbconnect').sequelize;
 
 var port = process.env.PORT || 80;
 var ip = '92.222.94.185';
@@ -57,8 +50,8 @@ require('./APP/ROUTES/route')(app, passport);
 /** Start APP at http://92.222.94.185:80 **/
 app.listen(port, ip);
 console.log('SERVER CONNECTED sur le port ' + port);
-module.exports(sequelize);
 exports = module.exports = app;
+
 /*function REST(){
     var self = this;
     self.connectMysql();
