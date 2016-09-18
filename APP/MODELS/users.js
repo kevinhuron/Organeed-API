@@ -27,15 +27,15 @@ var Users = sequelize.define('USERS', {
     img_f:          {type: DataTypes.STRING, allowNull: true, field: 'img_f'}
     //}
 }, {
-        freezeTableName: true,
-        instanceMethods: {
-            generateHash: function(password) {
-                return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-            },
-            validPassword: function(password) {
-                return bcrypt.compareSync(password, this.password);
-            }
+    freezeTableName: true,
+    classMethod: {
+        generateHash: function(password) {
+            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
         },
+        validPassword: function(password) {
+            return bcrypt.compareSync(password, this.password);
+        }
+    },
     tableName : 'USERS'
     });
 
