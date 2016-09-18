@@ -47,7 +47,6 @@ module.exports = function(app, passport) {
     });
 
     app.get('/failureSignUp', function(req, res) {
-        console.log(req);
         res.json({ message: 'NOK' });
     });
 

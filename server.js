@@ -20,7 +20,7 @@ var ip = '92.222.94.185';
 
 /** CHECK BDD CONNECTION **/
 sequelize.authenticate().then(function(err) {
-    console.log('Connection has been established successfully.');
+    console.log('Connection TO BDD has been established successfully.');
 }, function (err) {
     console.log('Unable to connect to the database:', err);
 });
