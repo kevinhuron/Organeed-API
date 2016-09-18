@@ -39,8 +39,8 @@ module.exports = function(app, passport) {
 
     app.post('/api/signup', passport.authenticate('local-signup', {
         successRedirect : '/successSignUp',
-        failureRedirect : '/failureSignUp',
-        failureFlash : true
+        failureRedirect : '/failureSignUp'
+        //failureFlash : true
     }));
     app.get('/successSignUp', function(req, res) {
         res.json({ message: 'OK' });
