@@ -31,11 +31,11 @@ module.exports = REST_ROUTER;*/
 
 module.exports = function(app, passport) {
 
-    app.get("/",function(req,res){
-        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better"});
+    app.get("/api/",function(req,res){
+        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 
-    app.post('/blog', function(req, res) {
+    app.post('/api/blog', function(req, res) {
         //var offset = 0;
         //.skip(parseInt(offset)).limit(9).exec(
         /*Articles.find().sort([['idA', -1]]).exec(function(err, articles) {

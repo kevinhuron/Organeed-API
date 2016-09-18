@@ -42,7 +42,7 @@ app.use(passport.session());
 var router = express.Router();
 
 //require('./APP/CONFIG/passport')(passport);
-app.use('/api', router);
+//app.use('/api', router);
 
 /** ROUTER **/
 require('./APP/ROUTES/route')(app, passport);
