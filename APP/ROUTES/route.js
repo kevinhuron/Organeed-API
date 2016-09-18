@@ -63,7 +63,7 @@ module.exports = function(app) {
                 place:(req.query.place) ? req.query.place : '',
                 id_manager:13}, type: sequelize.QueryTypes.INSERT }
         ).then(function(event) {
-            res.json({"Message" : "EVENT ADDED", "user_id":event});
+            res.json({"Message" : "EVENT ADDED", "event_id":event});
         });
         //User.create(req,res,connection);
     });
