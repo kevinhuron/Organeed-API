@@ -23,6 +23,9 @@ module.exports = function (passport) {
         function (req, email, passwd, done) {
             process.nextTick(function () {
                 User.findOne({'email': email}, function (err, user) {
+                    console.log(req);
+                    console.log(email);
+                    console.log(passwd);
                     /** if errors, return the error **/
                     if (err)
                         return done(err);
