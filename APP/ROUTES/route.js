@@ -45,7 +45,7 @@ module.exports = function(app) {
                 last_name:req.query.last_name,
                 age:(req.query.age) ? req.query.age : '',
                 email:req.query.email,
-                passwd:this.generateHash(req.query.passwd),
+                passwd:generateHash(req.query.passwd),
                 phone_number:(req.query.phone_number) ? req.query.phone_number : ''}, type: sequelize.QueryTypes.INSERT }
         ).then(function(user) {
             res.json({"Message" : "USER ADDED", "user_id":user});
@@ -69,6 +69,6 @@ module.exports = function(app) {
     });
 };
 
-this.generateHash = function(password) {
+function generateHash (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
