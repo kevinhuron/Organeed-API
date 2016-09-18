@@ -5,7 +5,7 @@ var Sequelize = require('sequelize')
     , mysql = require('mysql');
 
 /** CONFIG DB FILE **/
-var db = require('db');
+var db = require('./db');
 
 
 /** SETTING UP BDD CONFIG **/
