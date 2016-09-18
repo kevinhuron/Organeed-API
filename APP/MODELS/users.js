@@ -7,34 +7,39 @@ var bcrypt      = require('bcrypt-nodejs');
 
 var sequelize = require('../CONFIG/dbconnect').sequelize;
 
+module.exports = function(sequelize, DataTypes) {
 var Users = sequelize.define('users', {
     //local               : {
-        id_user         : {type: Sequelize.INTEGER, allowNull:false, autoIncrement:true, primaryKey:true},
-        last_name       : {type: Sequelize.STRING, allowNull:false, field:'last_name'},
-        first_name      : {type: Sequelize.STRING, allowNull:false, field:'first_name'},
-        age             : {type: Sequelize.INTEGER, allowNull:true, field:'age'},
-        email           : {type: Sequelize.STRING, allowNull:false, field:'email'},
-        passwd          : {type: Sequelize.STRING, allowNull:false, field:'passwd'},
-        phone_number    : {type: Sequelize.INTEGER, allowNull:true, field:'phone_number'},
-        img             : {type: Sequelize.STRING, allowNull:true, field:'img'},
+    id_user: {type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true},
+    last_name: {type: DataTypes.STRING, allowNull: false, field: 'last_name'},
+    first_name: {type: DataTypes.STRING, allowNull: false, field: 'first_name'},
+    age: {type: DataTypes.INTEGER, allowNull: true, field: 'age'},
+    email: {type: DataTypes.STRING, allowNull: false, field: 'email'},
+    passwd: {type: DataTypes.STRING, allowNull: false, field: 'passwd'},
+    phone_number: {type: DataTypes.INTEGER, allowNull: true, field: 'phone_number'},
+    img: {type: DataTypes.STRING, allowNull: true, field: 'img'},
     //},
     //facebook            : {
-        id_f            : {type: Sequelize.STRING, allowNull:true, field:'id_f'},
-        token_f         : {type: Sequelize.STRING, allowNull:true, field:'token_f'},
-        //email         : String
-        name_f          : {type: Sequelize.STRING, allowNull:true, field:'name_f'},
-        img_f           : {type: Sequelize.STRING, allowNull:true, field:'img_f'},
+    id_f: {type: DataTypes.STRING, allowNull: true, field: 'id_f'},
+    token_f: {type: DataTypes.STRING, allowNull: true, field: 'token_f'},
+    //email         : String
+    name_f: {type: DataTypes.STRING, allowNull: true, field: 'name_f'},
+    img_f: {type: DataTypes.STRING, allowNull: true, field: 'img_f'}
     //}
-    freezeTableName: true,
-    instanceMethods: {
-        generateHash: function(password) {
-            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-        },
-        validPassword: function(password) {
-            return bcrypt.compareSync(password, this.password);
+}, {
+        freezeTableName: true,
+        instanceMethods: {
+            generateHash: function(password) {
+                return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+            },
+            validPassword: function(password) {
+                return bcrypt.compareSync(password, this.password);
+            },
         }
-    }
-});
+    });
+
+    return User;
+}
 
 /*Users.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
@@ -45,7 +50,7 @@ Users.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.passwd);
 };*/
 
-module.exports = Users;
+//module.exports = Users;
 
 
 
