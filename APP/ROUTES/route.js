@@ -48,7 +48,7 @@ module.exports = function(app, connection) {
                 passwd:req.query.passwd,
                 phone_number:(req.query.phone_number) ? req.query.phone_number : ''}, type: sequelize.QueryTypes.INSERT }
         ).then(function(user) {
-            console.log(user);
+            res.json({"Message" : "USER ADDED", user:user});
         });
         //User.create(req,res,connection);
     });
