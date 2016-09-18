@@ -45,7 +45,7 @@ var router = express.Router();
 //app.use('/api', router);
 
 /** ROUTER **/
-require('./APP/ROUTES/route')(app, passport);
+require('./APP/ROUTES/route')(app/*, passport*/);
 
 /** Start APP at http://92.222.94.185:80 **/
 app.listen(port, ip);
