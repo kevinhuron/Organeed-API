@@ -42,7 +42,7 @@ module.exports = function(app, passport) {
             first_name: req.query.first_name,
             age: req.query.age,
             email: req.query.email,
-            passwd: User.generateHash(req.query.passwd),
+            passwd: generateHash(req.query.passwd),
             phone_number: req.query.phone_number
         }).then(function(user) {
             console.log(user.get({
@@ -54,3 +54,6 @@ module.exports = function(app, passport) {
 
 
 };
+function generateHash(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+}
