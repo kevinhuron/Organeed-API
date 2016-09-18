@@ -31,7 +31,7 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
 
 module.exports = REST_ROUTER;*/
 
-module.exports = function(app, connection) {
+module.exports = function(app) {
 
     app.get("/api/",function(req,res){
         res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
@@ -43,15 +43,32 @@ module.exports = function(app, connection) {
                 id: '',
                 first_name:req.query.first_name,
                 last_name:req.query.last_name,
-                age:req.query.age,
+                age:(req.query.age) ? req.query.age : '',
                 email:req.query.email,
-                passwd:req.query.passwd,
+                passwd:this.generateHash(req.query.passwd),
                 phone_number:(req.query.phone_number) ? req.query.phone_number : ''}, type: sequelize.QueryTypes.INSERT }
         ).then(function(user) {
-            res.json({"Message" : "USER ADDED", user:user});
+            res.json({"Message" : "USER ADDED", "user_id":user});
         });
         //User.create(req,res,connection);
     });
+    app.post("/api/new/event",function(req,res) {
+        sequelize.query("INSERT INTO `EVENTS` (id_user,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
+            { replacements: {
+                id: '',
+                first_name:req.query.first_name,
+                last_name:req.query.last_name,
+                age:(req.query.age) ? req.query.age : '',
+                email:req.query.email,
+                passwd:req.query.passwd,
+                phone_number:(req.query.phone_number) ? req.query.phone_number : ''}, type: sequelize.QueryTypes.INSERT }
+        ).then(function(event) {
+            res.json({"Message" : "EVENT ADDED", "user_id":event});
+        });
+        //User.create(req,res,connection);
+    });
+};
 
-
+this.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
