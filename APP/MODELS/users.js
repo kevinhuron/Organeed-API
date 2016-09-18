@@ -35,11 +35,13 @@ var Users = sequelize.define('USERS', {
             validPassword: function(password) {
                 return bcrypt.compareSync(password, this.password);
             }
-        }
+        },
+    tableName : 'USERS'
     });
 
     return Users;
 };
+
 
 /*Users.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

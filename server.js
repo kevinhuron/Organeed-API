@@ -2,7 +2,7 @@
 var express         = require('express');
 var app             = express();
 var bodyParser      = require('body-parser');
-var passport        = require('passport');
+//var passport        = require('passport');
 var session         = require('express-session');
 var morgan          = require('morgan');
 var multer  	    = require('multer');
@@ -25,7 +25,7 @@ sequelize.authenticate().then(function(err) {
     console.log('Unable to connect to the database:', err);
 });
 
-require('./APP/CONFIG/passport')(passport);
+//require('./APP/CONFIG/passport')(passport);
 
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -35,8 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(methodOverride('X-HTTP-Method-Override'));
 //app.use(express.static(__dirname + '/public'));
 //app.use(session({secret: 'appsecret'}));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 //app.use(multer({ dest: __dirname + '/public/img/article/' }));
 
 var router = express.Router();

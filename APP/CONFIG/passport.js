@@ -1,5 +1,4 @@
-
-var LocalStrategy = require('passport-local').Strategy;
+/*var LocalStrategy = require('passport-local').Strategy;
 var User = require('../MODELS/users');
 
 module.exports = function (passport) {
@@ -14,7 +13,7 @@ module.exports = function (passport) {
         });
     });
 
-    /** LOCAL SIGNUP **/
+    /** LOCAL SIGNUP *
     passport.use('local-signup', new LocalStrategy({
             usernameField: 'email',
             passwordField: 'passwd',
@@ -26,17 +25,17 @@ module.exports = function (passport) {
                     console.log(req);
                     console.log(email);
                     console.log(passwd);
-                    /** if errors, return the error **/
+                    /** if errors, return the error *
                     if (err)
                         return done(err);
-                    /** check to see if theres already a user with that email **/
+                    /** check to see if theres already a user with that email *
                     if (user) {
                         return done(null, false, {message:'L\'email ' + email + ' est déjà utilisé. Veuillez en saisir un autre.', type:'mailUse'});
                     } else {
-                        /** create the user **/
+                        /** create the user *
                         var newUser = new User();
 
-                        /** set the user's local info **/
+                        /** set the user's local info *
                         newUser.first_name = req.query.first_name;
                         newUser.last_name = req.query.last_name;
                         newUser.age = req.query.age;
@@ -44,7 +43,7 @@ module.exports = function (passport) {
                         newUser.passwd = newUser.generateHash(passwd);
                         newUser.phone_number = req.query.phone_number;
                         newUser.img = req.query.img;
-                        /** save the user **/
+                        /** save the user *
                         newUser.save(function (err) {
                             if (err)
                                 throw err;
@@ -53,7 +52,7 @@ module.exports = function (passport) {
                     }
                 });
             });
-        }));
+        }));*/
     /** END LOCAL SIGNUP **/
 
     /** LOCAL LOGIN **/
@@ -142,4 +141,4 @@ module.exports = function (passport) {
             });
 
         }));*/
-};
+//};

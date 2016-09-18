@@ -36,18 +36,20 @@ module.exports = function(app, passport) {
         res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 
-
-    app.post('/api/signup', passport.authenticate('local-signup', {
-        successRedirect : '/successSignUp',
-        failureRedirect : '/failureSignUp'
-        //failureFlash : true
-    }));
-    app.get('/successSignUp', function(req, res) {
-        res.json({ message: 'OK' });
-    });
-
-    app.get('/failureSignUp', function(req, res) {
-        res.json({ message: 'NOK' });
+    app.post("/api/register",function(req,res) {
+        User.create({
+            last_name: req.query.last_name,
+            first_name: req.query.first_name,
+            age: req.query.age,
+            email: req.query.email,
+            passwd: User.generateHash(req.query.passwd),
+            phone_number: req.query.phone_number
+        }).then(function(user) {
+            console.log(user.get({
+                plain: true
+            }));
+        });
+        //users.create(req,res,connection);
     });
 
 
