@@ -7,35 +7,35 @@ var bcrypt      = require('bcrypt-nodejs');
 
 var sequelize = require('../CONFIG/dbconnect').sequelize;
 
-var users = sequelize.define('users', {
+var Users = sequelize.define('users', {
     local               : {
-        last_name       : {type: Sequelize.STRING, allowNull: false} ,
-        first_name      : {type: Sequelize.STRING, allowNull: false},
-        age             : {type: Sequelize.INTEGER, allowNull:true},
-        email           : {type: Sequelize.STRING, allowNull: false},
-        passwd          : {type: Sequelize.STRING, allowNull: false},
-        phone_number    : {type: Sequelize.INTEGER, allowNull:true},
-        img             : {type: Sequelize.STRING, allowNull:true}
+        last_name       : {type: Sequelize.STRING, allowNull:false, field:'last_name'},
+        first_name      : {type: Sequelize.STRING, allowNull:false, field:'first_name'},
+        age             : {type: Sequelize.INTEGER, allowNull:true, field:'age'},
+        email           : {type: Sequelize.STRING, allowNull:false, field:'email'},
+        passwd          : {type: Sequelize.STRING, allowNull:false, field:'passwd'},
+        phone_number    : {type: Sequelize.INTEGER, allowNull:true, field:'phone_number'},
+        img             : {type: Sequelize.STRING, allowNull:true, field:'img'}
     },
     facebook            : {
-        id_f            : {type: Sequelize.STRING, allowNull:true},
-        token_f         : {type: Sequelize.STRING, allowNull:true},
+        id_f            : {type: Sequelize.STRING, allowNull:true, field:'id_f'},
+        token_f         : {type: Sequelize.STRING, allowNull:true, field:'token_f'},
         //email         : String
-        name_f          : {type: Sequelize.STRING, allowNull:true},
-        img_f           : {type: Sequelize.STRING, allowNull:true}
+        name_f          : {type: Sequelize.STRING, allowNull:true, field:'name_f'},
+        img_f           : {type: Sequelize.STRING, allowNull:true, field:'img_f'}
     }
 });
 
-users.methods.generateHash = function(password) {
+Users.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // checking if password is valid
-users.methods.validPassword = function(password) {
+Users.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.passwd);
 };
 
-module.exports = users;
+module.exports = Users;
 
 
 
