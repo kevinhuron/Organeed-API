@@ -53,15 +53,15 @@ module.exports = function(app) {
         //User.create(req,res,connection);
     });
     app.post("/api/new/event",function(req,res) {
-        sequelize.query("INSERT INTO `EVENTS` (id_user,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
+        sequelize.query("INSERT INTO `EVENTS` (id_event,title,date_start,date_end,description,place,id_manager) VALUES (:id, :title, :date_start, :date_end, :description, :place, :id_manager) ",
             { replacements: {
                 id: '',
-                first_name:req.query.first_name,
-                last_name:req.query.last_name,
-                age:(req.query.age) ? req.query.age : '',
-                email:req.query.email,
-                passwd:req.query.passwd,
-                phone_number:(req.query.phone_number) ? req.query.phone_number : ''}, type: sequelize.QueryTypes.INSERT }
+                title:req.query.title,
+                date_start:req.query.date_start,
+                date_end:req.query.date_end,
+                description:(req.query.description) ? req.query.description : '',
+                place:(req.query.place) ? req.query.place : '',
+                id_manager:13}, type: sequelize.QueryTypes.INSERT }
         ).then(function(event) {
             res.json({"Message" : "EVENT ADDED", "user_id":event});
         });
