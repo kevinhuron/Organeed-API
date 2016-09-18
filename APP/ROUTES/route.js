@@ -40,8 +40,13 @@ module.exports = function(app, connection) {
     app.post("/api/register",function(req,res) {
         sequelize.query("INSERT INTO `USERS` (id,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
             { replacements: {
-                id: '', first_name:req.query.first_name, last_name:req.query.last_name, age:req.query.age, email:req.query.email,
-            passwd:req.query.passwd, phone_number:req.query.phone_number}, type: sequelize.QueryTypes.INSERT }
+                id: '',
+                first_name:req.query.first_name,
+                last_name:req.query.last_name,
+                age:req.query.age,
+                email:req.query.email,
+                passwd:req.query.passwd,
+                phone_number:(req.query.phone_number) ? req.query.phone_number : ''}, type: sequelize.QueryTypes.INSERT }
         ).then(function(user) {
             console.log(user);
         });
