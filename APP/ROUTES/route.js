@@ -7,6 +7,7 @@ var bcrypt   = require('bcrypt-nodejs');
 //var multer  = require('multer');
 var moment  = require('moment');
 //moment.locale('fr');
+var sequelize = require('../CONFIG/dbconnect').sequelize;
 
 /*function REST_ROUTER(router,connection,bcrypt, passport) {
     var self = this;
@@ -30,30 +31,22 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
 
 module.exports = REST_ROUTER;*/
 
-module.exports = function(app, passport) {
+module.exports = function(app, connection) {
 
     app.get("/api/",function(req,res){
         res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 
     app.post("/api/register",function(req,res) {
-        User.create({
-            last_name: req.query.last_name,
-            first_name: req.query.first_name,
-            age: req.query.age,
-            email: req.query.email,
-            passwd: generateHash(req.query.passwd),
-            phone_number: req.query.phone_number
-        }).then(function(user) {
-            console.log(user.get({
-                plain: true
-            }));
+        sequelize.query("INSERT INTO `USERS` (id,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
+            { replacements: {
+                id: '', first_name:req.query.first_name, last_name:req.query.last_name, age:req.query.age, email:req.query.email,
+            passwd:req.query.passwd, phone_number:req.query.phone_number}, type: sequelize.QueryTypes.INSERT }
+        ).then(function(user) {
+            console.log(user);
         });
-        //users.create(req,res,connection);
+        //User.create(req,res,connection);
     });
 
 
 };
-function generateHash(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-}
