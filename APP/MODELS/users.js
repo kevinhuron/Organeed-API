@@ -5,7 +5,7 @@ var Sequelize   = require('sequelize');
 var mysql       = require("mysql");
 var bcrypt      = require('bcrypt-nodejs');
 
-var sequelize = require('./APP/CONFIG/dbconnect').sequelize;
+var sequelize = require('../CONFIG/dbconnect').sequelize;
 
 var users = sequelize.define('users', {
     local               : {
