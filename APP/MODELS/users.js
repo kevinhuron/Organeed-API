@@ -8,7 +8,7 @@ var bcrypt      = require('bcrypt-nodejs');
 var sequelize = require('../CONFIG/dbconnect').sequelize;
 
 module.exports = function(sequelize, DataTypes) {
-var Users = sequelize.define('users', {
+var Users = sequelize.define('USERS', {
     //local               : {
     id_user: {type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true},
     last_name: {type: DataTypes.STRING, allowNull: false, field: 'last_name'},
@@ -38,7 +38,7 @@ var Users = sequelize.define('users', {
         }
     });
 
-    return User;
+    return Users;
 }
 
 /*Users.methods.generateHash = function(password) {

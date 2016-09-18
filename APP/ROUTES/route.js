@@ -7,6 +7,7 @@ var bcrypt   = require('bcrypt-nodejs');
 //var multer  = require('multer');
 var moment  = require('moment');
 //moment.locale('fr');
+
 /*function REST_ROUTER(router,connection,bcrypt, passport) {
     var self = this;
     self.handleRoutes(router,connection,bcrypt, passport);
@@ -35,16 +36,18 @@ module.exports = function(app, passport) {
         res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 
-    app.post('/api/blog', function(req, res) {
-        //var offset = 0;
-        //.skip(parseInt(offset)).limit(9).exec(
-        /*Articles.find().sort([['idA', -1]]).exec(function(err, articles) {
-            if (err) {
-                res.send(err);
-                console.log(err);
-            }
-            res.json({ articles: articles, user: req.user});
-        });*/
+
+    app.post('/api/signup', passport.authenticate('local-signup', {
+        successRedirect : '/successSignUp',
+        failureRedirect : '/failureSignUp',
+        failureFlash : true
+    }));
+    app.get('/successSignUp', function(req, res) {
+        res.json({ message: 'OK' });
+    });
+
+    app.get('/failureSignUp', function(req, res) {
+        res.json({ message: 'NOK' });
     });
 
 

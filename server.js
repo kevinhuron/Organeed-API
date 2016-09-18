@@ -13,8 +13,6 @@ var mysql           = require("mysql");
 //var route           = require('./APP/ROUTES/route.js');
 //var Sequelize       = require("sequelize");
 
-
-
 var sequelize = require('./APP/CONFIG/dbconnect').sequelize;
 
 var port = process.env.PORT || 80;
@@ -26,6 +24,8 @@ sequelize.authenticate().then(function(err) {
 }, function (err) {
     console.log('Unable to connect to the database:', err);
 });
+
+require('./APP/CONFIG/passport')(passport);
 
 app.use(morgan('dev'));
 app.use(cookieParser());
