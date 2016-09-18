@@ -8,22 +8,22 @@ var bcrypt      = require('bcrypt-nodejs');
 var sequelize = require('../CONFIG/dbconnect').sequelize;
 
 var Users = sequelize.define('users', {
-    local               : {
+    //local               : {
         last_name       : {type: Sequelize.STRING, allowNull:false, field:'last_name'},
         first_name      : {type: Sequelize.STRING, allowNull:false, field:'first_name'},
         age             : {type: Sequelize.INTEGER, allowNull:true, field:'age'},
         email           : {type: Sequelize.STRING, allowNull:false, field:'email'},
         passwd          : {type: Sequelize.STRING, allowNull:false, field:'passwd'},
         phone_number    : {type: Sequelize.INTEGER, allowNull:true, field:'phone_number'},
-        img             : {type: Sequelize.STRING, allowNull:true, field:'img'}
-    },
-    facebook            : {
+        img             : {type: Sequelize.STRING, allowNull:true, field:'img'},
+    //},
+    //facebook            : {
         id_f            : {type: Sequelize.STRING, allowNull:true, field:'id_f'},
         token_f         : {type: Sequelize.STRING, allowNull:true, field:'token_f'},
         //email         : String
         name_f          : {type: Sequelize.STRING, allowNull:true, field:'name_f'},
         img_f           : {type: Sequelize.STRING, allowNull:true, field:'img_f'}
-    }
+    //}
 });
 
 Users.methods.generateHash = function(password) {
