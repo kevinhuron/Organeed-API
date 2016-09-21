@@ -34,10 +34,15 @@ module.exports = REST_ROUTER;*/
 module.exports = function(app) {
 
     app.get("/api/",function(req,res){
-        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
+        User.myusers.findAll().then(function(user){
+            res.json({"myuser":user});
+        }).catch(function(e){
+            console.log("ERREUR TA MERE");
+        });
+        //res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 
-    app.post("/api/register",function(req,res) {
+    /*app.post("/api/register",function(req,res) {
         sequelize.query("INSERT INTO `USERS` (id_user,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
             { replacements: {
                 id: '',
@@ -66,9 +71,5 @@ module.exports = function(app) {
             res.json({"Message" : "EVENT ADDED", "event_id":event});
         });
         //User.create(req,res,connection);
-    });
-};
-
-function generateHash (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    });*/
 };
