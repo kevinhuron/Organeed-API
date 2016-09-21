@@ -52,7 +52,7 @@ mymethods.validPassword = function(password, Users) {
     return bcrypt.compareSync(password, Users.passwd, null);
 };
 
-module.exports = {myusers, mymethods};
+module.exports = {"myusers":myusers, "mymethods":mymethods};
 
 
 
