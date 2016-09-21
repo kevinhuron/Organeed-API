@@ -7,42 +7,56 @@ var bcrypt      = require('bcrypt-nodejs');
 
 var sequelize = require('../CONFIG/dbconnect').sequelize;
 
-module.exports = function(sequelize, DataTypes) {
-var Users = sequelize.define('USERS', {
+var mymethods = {generateHash: null, validPassword: null};
+
+//module.exports = function(sequelize, DataTypes) {
+var myusers = sequelize.define('USERS', {
     //local               : {
-    id_user:        {type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true},
-    last_name:      {type: DataTypes.STRING, allowNull: false, field: 'last_name'},
-    first_name:     {type: DataTypes.STRING, allowNull: false, field: 'first_name'},
-    age:            {type: DataTypes.INTEGER, allowNull: true, field: 'age'},
-    email:          {type: DataTypes.STRING, allowNull: false, field: 'email'},
-    passwd:         {type: DataTypes.STRING, allowNull: false, field: 'passwd'},
-    phone_number:   {type: DataTypes.INTEGER, allowNull: true, field: 'phone_number'},
-    img:            {type: DataTypes.STRING, allowNull: true, field: 'img'},
+    id_user:        {type: sequelize.Sequelize.INTEGER, allowNull: false, field: 'id_user', autoIncrement: true, primaryKey: true},
+    last_name:      {type: sequelize.Sequelize.STRING, allowNull: false, field: 'last_name', validate:{isAlphanumeric:true}},
+    first_name:     {type: sequelize.Sequelize.STRING, allowNull: false, field: 'first_name', validate:{isAlphanumeric:true}},
+    age:            {type: sequelize.Sequelize.INTEGER, allowNull: true, field: 'age', validate:{isNumeric:true}},
+    email:          {type: sequelize.Sequelize.STRING, allowNull: false, field: 'email', validate:{isEmail:true}},
+    passwd:         {type: sequelize.Sequelize.STRING, allowNull: false, field: 'passwd'},
+    phone_number:   {type: sequelize.Sequelize.INTEGER, allowNull: true, field: 'phone_number', validate:{isNumeric:true}},
+    img:            {type: sequelize.Sequelize.STRING, allowNull: true, field: 'img', validate:{isAlphanumeric:true}},
     //},
     //facebook            : {
-    id_f:           {type: DataTypes.STRING, allowNull: true, field: 'id_f'},
-    token_f:        {type: DataTypes.STRING, allowNull: true, field: 'token_f'},
+    id_f:           {type: sequelize.Sequelize.STRING, allowNull: true, field: 'id_f'},
+    token_f:        {type: sequelize.Sequelize.STRING, allowNull: true, field: 'token_f'},
     //email         : String
-    name_f:         {type: DataTypes.STRING, allowNull: true, field: 'name_f'},
-    img_f:          {type: DataTypes.STRING, allowNull: true, field: 'img_f'}
+    name_f:         {type: sequelize.Sequelize.STRING, allowNull: true, field: 'name_f'},
+    img_f:          {type: sequelize.Sequelize.STRING, allowNull: true, field: 'img_f'}
     //}
 }, {
     freezeTableName: true,
-    classMethod: {
+    /*classMethod: {
         generateHash: function(password) {
             return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
         },
         validPassword: function(password) {
             return bcrypt.compareSync(password, this.password);
         }
-    },
+    },*/
     tableName : 'USERS'
     });
 
-    return Users;
+    //return Users;
+//};
+
+mymethods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(12), null);
 };
 
+mymethods.validPassword = function(password, Users) {
+    return bcrypt.compareSync(password, Users.passwd, null);
+};
 
+module.exports = {myusers, mymethods};
+
+
+
+// TODO: instancier tout ce qui est lié à un user pour faire les relations
 /*Users.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
