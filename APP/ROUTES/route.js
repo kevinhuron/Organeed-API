@@ -35,7 +35,7 @@ module.exports = function(app) {
 
     app.get("/api/",function(req,res){
         User.myusers.findAll().then(function(user){
-            res.json({"myuser":user});
+            res.json({"myuser":user}); 
         }).catch(function(e){
             console.log("ERREUR TA MERE");
         });
