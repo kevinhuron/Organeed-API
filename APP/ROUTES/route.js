@@ -73,3 +73,7 @@ module.exports = function(app) {
         //User.create(req,res,connection);
     });
 };
+
+function generateHash (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+}
