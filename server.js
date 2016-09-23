@@ -25,7 +25,7 @@ sequelize.authenticate().then(function(err) {
     console.log('Unable to connect to the database:', err);
 });
 
-//require('./APP/CONFIG/passport')(passport);
+require('./APP/CONFIG/passport')(passport);
 
 app.use(morgan('dev'));
 app.use(cookieParser());
