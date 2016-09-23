@@ -92,7 +92,7 @@ module.exports = function(app, passport) {
             "date_end":     req.query.date_end,
             "description":  (req.query.description) ? req.query.description : null,
             "place":        (req.query.place) ? req.query.place : null,
-            "id_manager":   req.query.id_manager
+            "id_manager":   req.user.id_user
         }).then(function (result) {
             res.status(302).json({ message: 'EVENT INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion event **/
