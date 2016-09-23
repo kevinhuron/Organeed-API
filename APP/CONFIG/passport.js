@@ -30,7 +30,8 @@ module.exports = function (passport) {
                     /** check to see if theres already a user with that email **/
                     if (user) { // Si l'user existe déjà \\
                         console.log("USER DEJA EXISTANT");
-                        return done(null, false);
+                        res.status().json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
+                        //return done(null, false);
                     } else {
                         /** save the user **/
                         User.myusers.create({

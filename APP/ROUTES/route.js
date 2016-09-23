@@ -49,11 +49,11 @@ module.exports = function(app, passport) {
     }));
 
     app.get('/api/successSignUp', function(req, res) {
-        res.json({ message: 'OK' });
+        res.status(200).json({ message: 'OK' });
     });
 
     app.get('/api/failureSignUp', function(req, res) {
-        res.json({ message: 'NOK' });
+        res.status(401).json({ message: 'NOK' });
     });
     /*app.post("/api/register",function(req,res) {
         sequelize.query("INSERT INTO `USERS` (id_user,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
