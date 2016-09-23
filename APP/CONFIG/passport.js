@@ -43,7 +43,7 @@ module.exports = function (passport) {
                             "img":          (req.query.img) ? req.query.img : null
                         }).then(function (result) {
                             console.log("result = " + result);
-                            return done(null, User.myusers);
+                            return done(null, User.myusers.id_user);
                         }).catch(function (e) { // Erreur dans l'inscription user \\
                             return done(e, {message: 'Erreur lors que l\'inscription user', type: 'singupFail', error:e});
                         });
