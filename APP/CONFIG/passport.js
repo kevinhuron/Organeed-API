@@ -4,7 +4,7 @@ var User = require('../MODELS/users');
 module.exports = function (passport) {
 
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, User.myusers.id_user);
     });
 
     passport.deserializeUser(function(id, done) {
@@ -42,11 +42,11 @@ module.exports = function (passport) {
                             "img":          (req.query.img) ? req.query.img : null
                         }).then(function (result) {
                             return done(null, result);
-                        }).catch(function (e) { // Erreur dans l'inscription user //
+                        }).catch(function (e) { // Erreur dans l'inscription user \\
                             return done(e, {message: 'Erreur lors que l\'inscription user', type: 'singupFail', error:e});
                         });
                     }
-                }).catch(function (e) { // Erreur dans la recherche de l'user //
+                }).catch(function (e) { // Erreur dans la recherche de l'user \\
                     return done(e, {message: 'Erreur lors de la recherche user', type: 'searchSingupFail', error:e});
                 });
             });
