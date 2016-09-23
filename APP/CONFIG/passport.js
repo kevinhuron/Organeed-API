@@ -9,7 +9,6 @@ module.exports = function (passport) {
 
     passport.deserializeUser(function(id, done) {
         User.myusers.find({where: {id_user: id}}).then(function (user) {
-            console.log(user);
             done(null, user);
         }).catch(function (e) {
             done(e, null);
@@ -29,8 +28,9 @@ module.exports = function (passport) {
                     if (err)
                         return done(err);
                     /** check to see if theres already a user with that email **/
-                    if (user) {
-                        return done(null, false, {message:'L\'email ' + email + ' est déjà utilisé. Veuillez en saisir un autre.', type:'mailUse'});
+                    if (user) { // Si l'user existe déjà \\
+                        console.log("USER DEJA EXISTANT");
+                        return done(null, false);
                     } else {
                         /** save the user **/
                         User.myusers.create({
@@ -44,10 +44,12 @@ module.exports = function (passport) {
                         }).then(function (result) {
                             return done(null, result);
                         }).catch(function (e) { // Erreur dans l'inscription user \\
+                            console.log("ERROR : Lors de l'inscription");
                             return done(e, null);
                         });
                     }
                 }).catch(function (e) { // Erreur dans la recherche de l'user \\
+                    console.log("ERROR : Lors de la recherche");
                     return done(e, null);
                 });
             });
