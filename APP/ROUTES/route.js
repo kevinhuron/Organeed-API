@@ -31,17 +31,29 @@ REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
 
 module.exports = REST_ROUTER;*/
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
     app.get("/api/",function(req,res) {
         User.myusers.findAll().then(function(user) {
             res.json({"myusers":user});
         }).catch(function(e) {
-            console.log("ERREUR TA MERE " + e);
+            console.log("ERREUR TA MERE = " + e);
         });
         //res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
+//local-signup
+    app.post("/api/register", passport.authenticate('local-signup', {
+        successRedirect : '/api/successSignUp',
+        failureRedirect : '/api/failureSignUp'
+    }));
 
+    app.get('/api/successSignUp', function(req, res) {
+        res.json({ message: 'OK' });
+    });
+
+    app.get('/api/failureSignUp', function(req, res) {
+        res.json({ message: 'NOK' });
+    });
     /*app.post("/api/register",function(req,res) {
         sequelize.query("INSERT INTO `USERS` (id_user,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
             { replacements: {

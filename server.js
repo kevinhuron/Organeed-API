@@ -2,7 +2,7 @@
 var express         = require('express');
 var app             = express();
 var bodyParser      = require('body-parser');
-//var passport        = require('passport');
+var passport        = require('passport');
 var session         = require('express-session');
 var morgan          = require('morgan');
 var multer  	    = require('multer');
@@ -35,8 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(methodOverride('X-HTTP-Method-Override'));
 //app.use(express.static(__dirname + '/public'));
 //app.use(session({secret: 'appsecret'}));
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 //app.use(multer({ dest: __dirname + '/public/img/article/' }));
 
 var router = express.Router();
@@ -45,7 +45,7 @@ var router = express.Router();
 //app.use('/api', router);
 
 /** ROUTER **/
-require('./APP/ROUTES/route')(app/*, passport*/);
+require('./APP/ROUTES/route')(app, passport);
 
 /** Start APP at http://92.222.94.185:80 **/
 app.listen(port, ip);

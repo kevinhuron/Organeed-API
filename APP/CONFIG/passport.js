@@ -1,4 +1,4 @@
-/*var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var User = require('../MODELS/users');
 
 module.exports = function (passport) {
@@ -13,46 +13,58 @@ module.exports = function (passport) {
         });
     });
 
-    /** LOCAL SIGNUP *
+    /** LOCAL SIGNUP **/
     passport.use('local-signup', new LocalStrategy({
             usernameField: 'email',
-            passwordField: 'passwd',
+            passwordField: 'password',
             passReqToCallback: true
         },
-        function (req, email, passwd, done) {
+        function (req, email, password, done) {
             process.nextTick(function () {
-                User.findOne({'email': email}, function (err, user) {
+                User.myusers.findOne({where: {email: email}}).then(function (err, user) {
                     console.log(req);
                     console.log(email);
-                    console.log(passwd);
-                    /** if errors, return the error *
+                    console.log(password);
+                    /** if errors, return the error **/
                     if (err)
                         return done(err);
-                    /** check to see if theres already a user with that email *
+                    /** check to see if theres already a user with that email **/
                     if (user) {
                         return done(null, false, {message:'L\'email ' + email + ' est déjà utilisé. Veuillez en saisir un autre.', type:'mailUse'});
                     } else {
-                        /** create the user *
-                        var newUser = new User();
-
-                        /** set the user's local info *
-                        newUser.first_name = req.query.first_name;
-                        newUser.last_name = req.query.last_name;
-                        newUser.age = req.query.age;
-                        newUser.email = email;
-                        newUser.passwd = newUser.generateHash(passwd);
-                        newUser.phone_number = req.query.phone_number;
-                        newUser.img = req.query.img;
-                        /** save the user *
-                        newUser.save(function (err) {
+                        /** set the user's local info **/
+                        /*User.myusers.first_name = req.query.first_name;
+                        User.myusers.last_name = req.query.last_name;
+                        User.myusers.age = (req.query.age) ? req.query.age : null;
+                        User.myusers.email = email;
+                        User.myusers.passwd = User.mymethods.generateHash(password);
+                        User.myusers.phone_number = (req.query.phone_number) ? req.query.phone_number : null;
+                        User.myusers.img = (req.query.img) ? req.query.img : null;*/
+                        /** save the user **/
+                        User.myusers.create({
+                            "first_name":   req.query.first_name,
+                            "last_name":    req.query.last_name,
+                            "age":          (req.query.age) ? req.query.age : null,
+                            "email":        email,
+                            "password":     User.mymethods.generateHash(password),
+                            "phone_number": (req.query.phone_number) ? req.query.phone_number : null,
+                            "img":          (req.query.img) ? req.query.img : null
+                        }).then(function (result) {
+                            return done(null, User.myusers);
+                        }).catch(function (e) { // erreur dans l'inscription user
+                            return done(e, {message: 'Erreur lors que l\'inscription user', type: 'singupFail', error:e});
+                        });
+                        /*newUser.save(function (err) {
                             if (err)
                                 throw err;
                             return done(null, newUser);
-                        });
+                        });*/
                     }
+                }).catch(function (e) { // erreur dans la recherche de l'user
+                    return done(e, {message: 'Erreur lors de la recherche user', type: 'searchSingupFail', error:e});
                 });
             });
-        }));*/
+        }));
     /** END LOCAL SIGNUP **/
 
     /** LOCAL LOGIN **/
@@ -141,4 +153,4 @@ module.exports = function (passport) {
             });
 
         }));*/
-//};
+};
