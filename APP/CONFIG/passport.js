@@ -4,7 +4,7 @@ var User = require('../MODELS/users');
 module.exports = function (passport) {
 
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user.id_user);
     });
 
     passport.deserializeUser(function(id, done) {
