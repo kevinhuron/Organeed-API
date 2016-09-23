@@ -13,11 +13,11 @@ var mymethods = {generateHash: null, validPassword: null};
 var myusers = sequelize.define('USERS', {
     //local               : {
     id_user:        {type: sequelize.Sequelize.INTEGER, allowNull: false, field: 'id_user', autoIncrement: true, primaryKey: true},
-    last_name:      {type: sequelize.Sequelize.STRING, allowNull: false, field: 'last_name', validate:{isAlphanumeric:true}},
-    first_name:     {type: sequelize.Sequelize.STRING, allowNull: false, field: 'first_name', validate:{isAlphanumeric:true}},
+    last_name:      {type: sequelize.Sequelize.STRING, allowNull: true, field: 'last_name', validate:{isAlphanumeric:true}},
+    first_name:     {type: sequelize.Sequelize.STRING, allowNull: true, field: 'first_name', validate:{isAlphanumeric:true}},
     age:            {type: sequelize.Sequelize.INTEGER, allowNull: true, field: 'age', validate:{isNumeric:true}},
-    email:          {type: sequelize.Sequelize.STRING, allowNull: false, field: 'email', validate:{isEmail:true}},
-    password:         {type: sequelize.Sequelize.STRING, allowNull: false, field: 'password'},
+    email:          {type: sequelize.Sequelize.STRING, allowNull: true, field: 'email', validate:{isEmail:true}},
+    password:       {type: sequelize.Sequelize.STRING, allowNull: true, field: 'password'},
     phone_number:   {type: sequelize.Sequelize.INTEGER, allowNull: true, field: 'phone_number', validate:{isNumeric:true}},
     img:            {type: sequelize.Sequelize.STRING, allowNull: true, field: 'img', validate:{isAlphanumeric:true}},
     //},

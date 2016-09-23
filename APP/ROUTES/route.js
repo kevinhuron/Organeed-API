@@ -33,11 +33,11 @@ module.exports = REST_ROUTER;*/
 
 module.exports = function(app) {
 
-    app.get("/api/",function(req,res){
-        User.myusers.findAll().then(function(user){
+    app.get("/api/",function(req,res) {
+        User.myusers.findAll().then(function(user) {
             res.json({"myusers":user});
-        }).catch(function(e){
-            console.log("ERREUR TA MERE");
+        }).catch(function(e) {
+            console.log("ERREUR TA MERE " + e);
         });
         //res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
