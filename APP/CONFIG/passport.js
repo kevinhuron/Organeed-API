@@ -3,13 +3,15 @@ var User = require('../MODELS/users');
 
 module.exports = function (passport) {
 
-    passport.serializeUser(function(user, done) {
-        done(null, user.id_user);
+    passport.serializeUser(function(User, done) {
+        done(null, User.myusers.id_user);
     });
 
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
+        User.myusers.find({where: {id_user: id}}).then(function (err, user) {
+            done(null, user);
+        }).catch(function (e) {
+            done(e, null);
         });
     });
 
@@ -21,7 +23,7 @@ module.exports = function (passport) {
         },
         function (req, email, password, done) {
             process.nextTick(function () {
-                User.myusers.findOne({where: {email: email}}).then(function (err, user) {
+                User.myusers.find({where: {email: email}}).then(function (err, user) {
                     /** if errors, return the error **/
                     if (err)
                         return done(err);
