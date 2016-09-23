@@ -71,23 +71,20 @@ module.exports = function(app, passport) {
         res.json({ message: 'NOK' });
     });
     /**************** End Login ****************/
-    /*app.post("/api/register",function(req,res) {
-        sequelize.query("INSERT INTO `USERS` (id_user,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
-            { replacements: {
-                id: '',
-                first_name:req.query.first_name,
-                last_name:req.query.last_name,
-                age:(req.query.age) ? req.query.age : '',
-                email:req.query.email,
-                passwd:generateHash(req.query.passwd),
-                phone_number:(req.query.phone_number) ? req.query.phone_number : ''}, type: sequelize.QueryTypes.INSERT }
-        ).then(function(user) {
-            res.json({"Message" : "USER ADDED", "user_id":user});
-        });
-        //User.create(req,res,connection);
+    /**************** Logout ****************/
+    app.get('/api/logout', function(req, res) {
+        req.logout();
+        //res.redirect('/');
     });
-    app.post("/api/new/event",function(req,res) {
-        sequelize.query("INSERT INTO `EVENTS` (id_event,title,date_start,date_end,description,place,id_manager) VALUES (:id, :title, :date_start, :date_end, :description, :place, :id_manager) ",
+    /**************** End Logout ****************/
+
+    app.get('/api/loginView', function(req, res) {
+        res.status(200).json({ message: 'LOGIN VIEW' });
+    });
+
+    app.post("/api/new/event",loggedIn,function(req,res) {
+        res.status(302).json({ message: 'INSERT EVENT' });
+        /*sequelize.query("INSERT INTO `EVENTS` (id_event,title,date_start,date_end,description,place,id_manager) VALUES (:id, :title, :date_start, :date_end, :description, :place, :id_manager) ",
             { replacements: {
                 id: '',
                 title:req.query.title,
@@ -98,11 +95,18 @@ module.exports = function(app, passport) {
                 id_manager:13}, type: sequelize.QueryTypes.INSERT }
         ).then(function(event) {
             res.json({"Message" : "EVENT ADDED", "event_id":event});
-        });
+        });*/
         //User.create(req,res,connection);
-    });*/
+    });
 };
 
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/api/loginView');
+    }
+}
 /*function generateHash (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }*/
