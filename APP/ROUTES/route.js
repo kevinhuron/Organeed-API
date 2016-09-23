@@ -3,6 +3,7 @@
  */
 var mysql   = require("mysql");
 var User = require('../MODELS/users');
+var Event = require('../MODELS/events');
 var bcrypt   = require('bcrypt-nodejs');
 //var multer  = require('multer');
 var moment  = require('moment');
@@ -42,7 +43,7 @@ module.exports = function(app, passport) {
         console.log(req);
         //res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
-//local-signup
+
     /****************** Register ****************/
     app.post("/api/register", passport.authenticate('local-signup', {
         successRedirect : '/api/successSignUp',
@@ -57,6 +58,7 @@ module.exports = function(app, passport) {
         res.status(401).json({ message: 'NOK' });
     });
     /****************** End Register *************/
+
     /****************** Login ********************/
     app.post('/api/login', passport.authenticate('local-login', {
         successRedirect : '/api/successLogJson',
@@ -71,6 +73,7 @@ module.exports = function(app, passport) {
         res.json({ message: 'NOK' });
     });
     /**************** End Login ****************/
+
     /**************** Logout ****************/
     app.get('/api/logout', function(req, res) {
         req.logout();
@@ -83,20 +86,19 @@ module.exports = function(app, passport) {
     });
 
     app.post("/api/new/event",loggedIn,function(req,res) {
-        res.status(302).json({ message: 'INSERT EVENT' });
-        /*sequelize.query("INSERT INTO `EVENTS` (id_event,title,date_start,date_end,description,place,id_manager) VALUES (:id, :title, :date_start, :date_end, :description, :place, :id_manager) ",
-            { replacements: {
-                id: '',
-                title:req.query.title,
-                date_start:req.query.date_start,
-                date_end:req.query.date_end,
-                description:(req.query.description) ? req.query.description : '',
-                place:(req.query.place) ? req.query.place : '',
-                id_manager:13}, type: sequelize.QueryTypes.INSERT }
-        ).then(function(event) {
-            res.json({"Message" : "EVENT ADDED", "event_id":event});
-        });*/
-        //User.create(req,res,connection);
+        Event.myevents.create({
+            "title":        req.query.title,
+            "date_start":   req.query.date_start,
+            "date_end":     req.query.date_end,
+            "description":  (req.query.description) ? req.query.description : null,
+            "place":        (req.query.place) ? req.query.place : null,
+            "id_manager":   req.query.id_manager
+        }).then(function (result) {
+            res.status(302).json({ message: 'EVENT INSERTED !' });
+        }).catch(function (e) { /** Erreur dans l'insertion event **/
+            console.log("ERROR : Lors de l'insertion event");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
     });
 };
 
