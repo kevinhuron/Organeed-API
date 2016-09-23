@@ -17,7 +17,7 @@ var myusers = sequelize.define('USERS', {
     first_name:     {type: sequelize.Sequelize.STRING, allowNull: false, field: 'first_name', validate:{isAlphanumeric:true}},
     age:            {type: sequelize.Sequelize.INTEGER, allowNull: true, field: 'age', validate:{isNumeric:true}},
     email:          {type: sequelize.Sequelize.STRING, allowNull: false, field: 'email', validate:{isEmail:true}},
-    passwd:         {type: sequelize.Sequelize.STRING, allowNull: false, field: 'passwd'},
+    password:         {type: sequelize.Sequelize.STRING, allowNull: false, field: 'password'},
     phone_number:   {type: sequelize.Sequelize.INTEGER, allowNull: true, field: 'phone_number', validate:{isNumeric:true}},
     img:            {type: sequelize.Sequelize.STRING, allowNull: true, field: 'img', validate:{isAlphanumeric:true}},
     //},
@@ -49,7 +49,7 @@ mymethods.generateHash = function(password) {
 };
 
 mymethods.validPassword = function(password, Users) {
-    return bcrypt.compareSync(password, Users.passwd, null);
+    return bcrypt.compareSync(password, Users.password, null);
 };
 
 module.exports = {"myusers":myusers, "mymethods":mymethods};
