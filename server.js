@@ -34,7 +34,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(methodOverride('X-HTTP-Method-Override'));
 //app.use(express.static(__dirname + '/public'));
-app.use(session({secret: 'appsecret'}));
+app.use(session({secret: 'appsecret', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(multer({ dest: __dirname + '/public/img/article/' }));
