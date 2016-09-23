@@ -25,8 +25,8 @@ module.exports = function (passport) {
             process.nextTick(function () {
                 User.myusers.find({where: {email: email}}).then(function (user) {
                     /** if errors, return the error **/
-                    if (err)
-                        return done(err);
+                    /*if (err)
+                        return done(err);*/
                     /** check to see if theres already a user with that email **/
                     console.log(user);
                     if (user) { // Si l'user existe déjà \\
