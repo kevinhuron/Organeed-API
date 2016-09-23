@@ -31,14 +31,6 @@ module.exports = function (passport) {
                     if (user) {
                         return done(null, false, {message:'L\'email ' + email + ' est déjà utilisé. Veuillez en saisir un autre.', type:'mailUse'});
                     } else {
-                        /** set the user's local info **/
-                        /*User.myusers.first_name = req.query.first_name;
-                        User.myusers.last_name = req.query.last_name;
-                        User.myusers.age = (req.query.age) ? req.query.age : null;
-                        User.myusers.email = email;
-                        User.myusers.passwd = User.mymethods.generateHash(password);
-                        User.myusers.phone_number = (req.query.phone_number) ? req.query.phone_number : null;
-                        User.myusers.img = (req.query.img) ? req.query.img : null;*/
                         /** save the user **/
                         User.myusers.create({
                             "first_name":   req.query.first_name,
@@ -50,11 +42,11 @@ module.exports = function (passport) {
                             "img":          (req.query.img) ? req.query.img : null
                         }).then(function (result) {
                             return done(null, User.myusers);
-                        }).catch(function (e) { /** erreur dans l'inscription user **/
+                        }).catch(function (e) { // Erreur dans l'inscription user //
                             return done(e, {message: 'Erreur lors que l\'inscription user', type: 'singupFail', error:e});
                         });
                     }
-                }).catch(function (e) { /** erreur dans la recherche de l'user **/
+                }).catch(function (e) { // Erreur dans la recherche de l'user //
                     return done(e, {message: 'Erreur lors de la recherche user', type: 'searchSingupFail', error:e});
                 });
             });
