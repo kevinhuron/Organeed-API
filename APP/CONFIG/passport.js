@@ -41,7 +41,7 @@ module.exports = function (passport) {
                             "phone_number": (req.query.phone_number) ? req.query.phone_number : null,
                             "img":          (req.query.img) ? req.query.img : null
                         }).then(function (result) {
-                            return done(null, User);
+                            return done(null, result);
                         }).catch(function (e) { // Erreur dans l'inscription user \\
                             return done(e, {message: 'Erreur lors que l\'inscription user', type: 'singupFail', error:e});
                         });
