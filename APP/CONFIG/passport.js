@@ -8,7 +8,7 @@ module.exports = function (passport) {
     });
 
     passport.deserializeUser(function(id, done) {
-        User.myusers.findOne({where: {id_user: id}}).then(function (err, user) {
+        User.myusers.find({where: {id_user: id}}).then(function (user) {
             console.log(user);
             done(null, user);
         }).catch(function (e) {
