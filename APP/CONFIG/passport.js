@@ -23,7 +23,7 @@ module.exports = function (passport) {
         },
         function (req, email, password, done) {
             process.nextTick(function () {
-                User.myusers.findOne({where: {email: email}}).then(function (err, user) {
+                User.myusers.find({where: {email: email}}).then(function (err, user) {
                     /** if errors, return the error **/
                     if (err)
                         return done(err);
@@ -31,7 +31,7 @@ module.exports = function (passport) {
                     console.log(user);
                     if (user) { // Si l'user existe déjà \\
                         console.log("USER DEJA EXISTANT");
-                        res.status().json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
+                        res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
                         //return done(null, false);
                     } else {
                         /** save the user **/
