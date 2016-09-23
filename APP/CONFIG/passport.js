@@ -69,7 +69,7 @@ module.exports = function (passport) {
                     return done(null, false);
                 }
                 /** if user found but wrong passwd **/
-                if (!User.mymethods.validPassword(password)) {
+                if (!User.mymethods.validPassword(password,user)) {
                     console.log('Invalid Password');
                     return done(null, false);
                 }
