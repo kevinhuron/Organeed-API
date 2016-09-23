@@ -4,6 +4,7 @@ var User = require('../MODELS/users');
 module.exports = function (passport) {
 
     passport.serializeUser(function(user, done) {
+        console.log("user = " + user);
         done(null, user.id_user);
     });
 
@@ -41,6 +42,7 @@ module.exports = function (passport) {
                             "phone_number": (req.query.phone_number) ? req.query.phone_number : null,
                             "img":          (req.query.img) ? req.query.img : null
                         }).then(function (result) {
+                            console.log("result = " + result);
                             return done(null, User.myusers);
                         }).catch(function (e) { // Erreur dans l'inscription user \\
                             return done(e, {message: 'Erreur lors que l\'inscription user', type: 'singupFail', error:e});
