@@ -22,9 +22,6 @@ module.exports = function (passport) {
         function (req, email, password, done) {
             process.nextTick(function () {
                 User.myusers.findOne({where: {email: email}}).then(function (err, user) {
-                    console.log(req);
-                    console.log(email);
-                    console.log(password);
                     /** if errors, return the error **/
                     if (err)
                         return done(err);
@@ -51,16 +48,11 @@ module.exports = function (passport) {
                             "img":          (req.query.img) ? req.query.img : null
                         }).then(function (result) {
                             return done(null, User.myusers);
-                        }).catch(function (e) { // erreur dans l'inscription user
+                        }).catch(function (e) { /** erreur dans l'inscription user **/
                             return done(e, {message: 'Erreur lors que l\'inscription user', type: 'singupFail', error:e});
                         });
-                        /*newUser.save(function (err) {
-                            if (err)
-                                throw err;
-                            return done(null, newUser);
-                        });*/
                     }
-                }).catch(function (e) { // erreur dans la recherche de l'user
+                }).catch(function (e) { /** erreur dans la recherche de l'user **/
                     return done(e, {message: 'Erreur lors de la recherche user', type: 'searchSingupFail', error:e});
                 });
             });
