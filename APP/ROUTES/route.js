@@ -34,11 +34,12 @@ module.exports = REST_ROUTER;*/
 module.exports = function(app, passport) {
 
     app.get("/api/",function(req,res) {
-        User.myusers.findAll().then(function(user) {
+        /*User.myusers.findAll().then(function(user) {
             res.json({"myusers":user});
         }).catch(function(e) {
             console.log("ERREUR TA MERE = " + e);
-        });
+        });*/
+        console.log(req);
         //res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 //local-signup
