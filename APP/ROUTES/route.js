@@ -43,6 +43,7 @@ module.exports = function(app, passport) {
         //res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 //local-signup
+    /****************** Register ****************/
     app.post("/api/register", passport.authenticate('local-signup', {
         successRedirect : '/api/successSignUp',
         failureRedirect : '/api/failureSignUp'
@@ -55,6 +56,21 @@ module.exports = function(app, passport) {
     app.get('/api/failureSignUp', function(req, res) {
         res.status(401).json({ message: 'NOK' });
     });
+    /****************** End Register *************/
+    /****************** Login ********************/
+    app.post('/api/login', passport.authenticate('local-login', {
+        successRedirect : '/api/successLogJson',
+        failureRedirect : '/api/failureLogJson'
+    }));
+
+    app.get('/api/successLogJson', function(req, res) {
+        res.json({ message: 'OK' });
+    });
+
+    app.get('/api/failureLogJson', function(req, res) {
+        res.json({ message: 'NOK' });
+    });
+    /**************** End Login ****************/
     /*app.post("/api/register",function(req,res) {
         sequelize.query("INSERT INTO `USERS` (id_user,first_name,last_name,age,email,password,phone_number) VALUES (:id, :first_name, :last_name, :age, :email, :passwd, :phone_number) ",
             { replacements: {

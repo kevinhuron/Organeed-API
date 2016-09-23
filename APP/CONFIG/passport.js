@@ -24,12 +24,9 @@ module.exports = function (passport) {
         function (req, email, password, done) {
             process.nextTick(function () {
                 User.myusers.find({where: {email: email}}).then(function (user) {
-                    /** if errors, return the error **/
-                    /*if (err)
-                        return done(err);*/
                     /** check to see if theres already a user with that email **/
                     console.log(user);
-                    if (user) { // Si l'user existe déjà \\
+                    if (user) { /** Si l'user existe déjà **/
                         console.log("USER DEJA EXISTANT");
                         //res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
                         return done(null, false, {message:'L\'email ' + email + ' est déjà utilisé. Veuillez en saisir un autre.', type:'mailUse'});
@@ -45,12 +42,12 @@ module.exports = function (passport) {
                             "img":          (req.query.img) ? req.query.img : null
                         }).then(function (result) {
                             return done(null, result);
-                        }).catch(function (e) { // Erreur dans l'inscription user \\
+                        }).catch(function (e) { /** Erreur dans l'inscription user **/
                             console.log("ERROR : Lors de l'inscription");
                             return done(e, null);
                         });
                     }
-                }).catch(function (e) { // Erreur dans la recherche de l'user \\
+                }).catch(function (e) { /** Erreur dans la recherche de l'user **/
                     console.log("ERROR : Lors de la recherche");
                     //res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
                     return done(e, null);
@@ -60,33 +57,32 @@ module.exports = function (passport) {
     /** END LOCAL SIGNUP **/
 
     /** LOCAL LOGIN **/
-    /*passport.use('local-login', new LocalStrategy({
-            usernameField: 'mail',
-            passwordField: 'passwd',
+    passport.use('local-login', new LocalStrategy({
+            usernameField: 'email',
+            passwordField: 'password',
             passReqToCallback: true
         },
-        function (req, mail, passwd, done) {
-            User.findOne({'local.mail': mail}, function (err, user) {
-                /** if  errors, return error
-                if (err)
-                    return done(err);
-                /** if no user is found
+        function (req, email, password, done) {
+            User.myusers.find({where: {email: email}}).then(function (user) {
+                /** if no user is found **/
                 if (!user) {
-                    console.log('User Not Found with mail ' + mail);
+                    console.log('User Not Found with mail ' + email);
                     return done(null, false);
                 }
-
-                /** if user found but wrong passwd
-                if (!user.validPassword(passwd)) {
+                /** if user found but wrong passwd **/
+                if (!User.mymethods.validPassword(password)) {
                     console.log('Invalid Password');
                     return done(null, false);
                 }
                 console.log('User login succesful');
-                /** return successful user *
+                /** return successful user **/
                 return done(null, user);
+            }).catch(function (e) { /** Erreur dans la recherche de l'user **/
+                console.log("ERROR : Lors de la recherche");
+                //res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
+                return done(e, null);
             });
-
-        }));*/
+        }));
     /** END LOCAL LOGIN **/
 
 
