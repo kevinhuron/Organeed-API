@@ -52,7 +52,8 @@ module.exports = function (passport) {
                     }
                 }).catch(function (e) { // Erreur dans la recherche de l'user \\
                     console.log("ERROR : Lors de la recherche");
-                    return done(e, null);
+                    res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
+                    //return done(e, null);
                 });
             });
         }));
