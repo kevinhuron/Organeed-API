@@ -4,10 +4,11 @@
 var mysql   = require("mysql");
 var User = require('../MODELS/users');
 var Event = require('../MODELS/events');
+var Comment = require('../MODELS/comments');
 var bcrypt   = require('bcrypt-nodejs');
 //var multer  = require('multer');
 var moment  = require('moment');
-//moment.locale('fr');
+moment.locale('fr');
 var sequelize = require('../CONFIG/dbconnect').sequelize;
 
 /*function REST_ROUTER(router,connection,bcrypt, passport) {
@@ -66,11 +67,11 @@ module.exports = function(app, passport) {
     }));
 
     app.get('/api/successLogJson', function(req, res) {
-        res.json({ message: 'OK' });
+        res.status(200).json({ message: 'OK' });
     });
 
     app.get('/api/failureLogJson', function(req, res) {
-        res.json({ message: 'NOK' });
+        res.status(401).json({ message: 'NOK' });
     });
     /**************** End Login ****************/
 
@@ -95,6 +96,22 @@ module.exports = function(app, passport) {
             "id_manager":   req.user.id_user
         }).then(function (result) {
             res.status(302).json({ message: 'EVENT INSERTED !' });
+        }).catch(function (e) { /** Erreur dans l'insertion event **/
+            console.log("ERROR : Lors de l'insertion event");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+    app.post("/api/new/comment",loggedIn,function(req,res) {
+        // TODO = NEED ID EVENT
+        Comment.mycomments.create({
+            "author":       req.query.author,
+            "content":      req.query.content,
+            "date_comment": moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+            "img":          (req.query.img) ? req.query.img : null,
+            "id_event":     req.query.id_event,                                         // TODO : ID EVENT
+            "id_comment_1": (req.query.id_comment_1) ? req.query.id_comment_1 : null    // TODO ; CHECK SI REPONSE A UN AUTRE COM
+        }).then(function (result) {
+            res.status(302).json({ message: 'COM INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion event **/
             console.log("ERROR : Lors de l'insertion event");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
