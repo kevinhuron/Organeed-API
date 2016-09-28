@@ -22,7 +22,7 @@ var mylists = sequelize.define('LIST', {
     id_user: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: true,
-        field: 'content'
+        field: 'id_user'
     }
 }, {
     freezeTableName: true,
