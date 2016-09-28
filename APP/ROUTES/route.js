@@ -5,6 +5,7 @@ var mysql       = require("mysql");
 var User        = require('../MODELS/users');
 var Event       = require('../MODELS/events');
 var Comment     = require('../MODELS/comments');
+var Tag         = require('../MODELS/tags');
 var bcrypt      = require('bcrypt-nodejs');
 //var multer    = require('multer');
 var moment      = require('moment');
@@ -91,7 +92,15 @@ module.exports = function(app, passport) {
         }).then(function (result) {
             res.status(302).json({ message: 'COM INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion comments **/
-            console.log("ERROR : Lors de l'insertion event");
+            console.log("ERROR : Lors de l'insertion comments");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+    app.get("/api/tags",loggedIn,function(req,res) {
+        Tag.mytags.find({where: {id_user: [null, (req.user.id_user) ? req.user.id_user : req.user.id_f]}}).then(function(tags) {
+            res.status(200).json({"tags":tags});
+        }).catch(function (e) { /** Erreur dans la récupération des tags **/
+            console.log("ERROR : Lors de la récupération des tags");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
