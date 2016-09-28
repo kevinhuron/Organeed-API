@@ -1,37 +1,15 @@
 /**
  * Created by kevinhuron on 11/09/2016.
  */
-var mysql   = require("mysql");
-var User = require('../MODELS/users');
-var Event = require('../MODELS/events');
-var Comment = require('../MODELS/comments');
-var bcrypt   = require('bcrypt-nodejs');
-//var multer  = require('multer');
-var moment  = require('moment');
+var mysql       = require("mysql");
+var User        = require('../MODELS/users');
+var Event       = require('../MODELS/events');
+var Comment     = require('../MODELS/comments');
+var bcrypt      = require('bcrypt-nodejs');
+//var multer    = require('multer');
+var moment      = require('moment');
 moment.locale('fr');
-var sequelize = require('../CONFIG/dbconnect').sequelize;
-
-/*function REST_ROUTER(router,connection,bcrypt, passport) {
-    var self = this;
-    self.handleRoutes(router,connection,bcrypt, passport);
-}
-
-REST_ROUTER.prototype.handleRoutes = function(router,connection,bcrypt) {
-    router.get("/",function(req,res){
-        res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER"});
-    });
-    router.post("/new/user",function(req,res){
-        users.create(req,res,connection);
-    });
-    router.post("/new/event",function(req,res){
-        event.create(req,res,connection);
-    });
-    router.get("/get/event/:ranges/:rangef",function(req,res){
-        event.get(req,res,connection, 3);
-    });
-};
-
-module.exports = REST_ROUTER;*/
+var sequelize   = require('../CONFIG/dbconnect').sequelize;
 
 module.exports = function(app, passport) {
 
@@ -108,11 +86,11 @@ module.exports = function(app, passport) {
             "content":      req.query.content,
             "date_comment": moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
             "img":          (req.query.img) ? req.query.img : null,
-            "id_event":     req.query.id_event,                                         // TODO : ID EVENT
+            "id_event":     /*req.query.id_event*/6,                                         // TODO : ID EVENT
             "id_comment_1": (req.query.id_comment_1) ? req.query.id_comment_1 : null    // TODO ; CHECK SI REPONSE A UN AUTRE COM
         }).then(function (result) {
             res.status(302).json({ message: 'COM INSERTED !' });
-        }).catch(function (e) { /** Erreur dans l'insertion event **/
+        }).catch(function (e) { /** Erreur dans l'insertion comments **/
             console.log("ERROR : Lors de l'insertion event");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });

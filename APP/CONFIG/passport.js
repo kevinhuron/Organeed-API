@@ -1,12 +1,14 @@
-var LocalStrategy = require('passport-local').Strategy;
-var User = require('../MODELS/users');
+var LocalStrategy   = require('passport-local').Strategy;
+var User            = require('../MODELS/users');
 
 module.exports = function (passport) {
 
+    /** Method par defaut de passport pour serialisation **/
     passport.serializeUser(function(user, done) {
         done(null, user.id_user);
     });
 
+    /** Method par defaut de passport pour deserialisation **/
     passport.deserializeUser(function(id, done) {
         User.myusers.find({where: {id_user: id}}).then(function (user) {
             done(null, user);
@@ -27,7 +29,6 @@ module.exports = function (passport) {
                     /** check to see if theres already a user with that email **/
                     if (user) { /** Si l'user existe déjà **/
                         console.log("USER DEJA EXISTANT");
-                        //res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
                         return done(null, false, {message:'L\'email ' + email + ' est déjà utilisé. Veuillez en saisir un autre.', type:'mailUse'});
                     } else {
                         /** save the user **/
@@ -47,9 +48,7 @@ module.exports = function (passport) {
                         });
                     }
                 }).catch(function (e) { /** Erreur dans la recherche de l'user **/
-                    console.log("ERROR : Lors de la recherche");
-                    //res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
-                    return done(e, null);
+                    console.log("ERROR : Lors de la recherche");return done(e, null);
                 });
             });
         }));
@@ -78,7 +77,6 @@ module.exports = function (passport) {
                 return done(null, user);
             }).catch(function (e) { /** Erreur dans la recherche de l'user **/
                 console.log("ERROR : Lors de la recherche");
-                //res.status(401).json({message: "ERROR - Cette adresse email est déjà utilisé. Veuillez vous connecter ou utiliser une autre adresse email.", statut:"mailUsed"});
                 return done(e, null);
             });
         }));

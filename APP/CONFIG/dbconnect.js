@@ -1,8 +1,8 @@
 /**
  * Created by kevinhuron on 18/09/2016.
  */
-var Sequelize = require('sequelize')
-    , mysql = require('mysql');
+var Sequelize   = require('sequelize')
+    , mysql     = require('mysql');
 
 /** CONFIG DB FILE **/
 var db = require('./db');

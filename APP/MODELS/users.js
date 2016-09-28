@@ -1,13 +1,13 @@
 /**
  * Created by kevinhuron on 11/09/2016.
  */
-var Sequelize = require('sequelize');
-var mysql = require("mysql");
-var bcrypt = require('bcrypt-nodejs');
+var Sequelize   = require('sequelize');
+var mysql       = require("mysql");
+var bcrypt      = require('bcrypt-nodejs');
 
-var sequelize = require('../CONFIG/dbconnect').sequelize;
+var sequelize   = require('../CONFIG/dbconnect').sequelize;
 
-var mymethods = {generateHash: null, validPassword: null};
+var mymethods   = {generateHash: null, validPassword: null};
 
 var myusers = sequelize.define('USERS', {
     id_user: {

@@ -1,9 +1,8 @@
 /**
  * Created by kevinhuron on 11/09/2016.
  */
-var mysql = require("mysql");
-
-var sequelize = require('../CONFIG/dbconnect').sequelize;
+var mysql       = require("mysql");
+var sequelize   = require('../CONFIG/dbconnect').sequelize;
 
 var myevents = sequelize.define('EVENTS', {
     id_event: {
