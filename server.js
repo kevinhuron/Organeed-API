@@ -33,7 +33,7 @@ app.use(cookieParser());
 //app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({origin : '*'}));
+app.use(cors({origin : 'http://localhost:8100'}));
 //app.use(methodOverride('X-HTTP-Method-Override'));
 //app.use(express.static(__dirname + '/public'));
 app.use(session({secret: 'appsecret', resave: true, saveUninitialized: true}));
