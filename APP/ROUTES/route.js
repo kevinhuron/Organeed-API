@@ -99,7 +99,7 @@ module.exports = function(app, passport) {
                 where: {id_manager : 34}
             }
         ).then(function(events) {
-            res.status(200).json({"events":events});
+            res.status(200).json({"events":events,"user":req.user});
         }).catch(function (e) { /** Erreur dans la récupération des events **/
         console.log("ERROR : Lors de la récupération des events");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
@@ -136,7 +136,7 @@ module.exports = function(app, passport) {
                 where: {id_event : 6}                                                   // TODO : ID EVENT
             }
         ).then(function(comments) {
-            res.status(200).json({"comments":comments});
+            res.status(200).json({"comments":comments,"user":req.user});
         }).catch(function (e) { /** Erreur dans la récupération des comments **/
         console.log("ERROR : Lors de la récupération des comments");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
@@ -153,7 +153,7 @@ module.exports = function(app, passport) {
                 where: sequelize.or({id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f},{id_user : null})
             }
         ).then(function(tags) {
-            res.status(200).json({"tags":tags});
+            res.status(200).json({"tags":tags,"user":req.user});
         }).catch(function (e) { /** Erreur dans la récupération des tags **/
             console.log("ERROR : Lors de la récupération des tags");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
