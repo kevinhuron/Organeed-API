@@ -98,7 +98,7 @@ module.exports = function(app, passport) {
     });
     app.get("/api/tags",loggedIn,function(req,res) {
         Tag.mytags.findAll(
-            {attributes: ['id_tags', 'name'],where: {id_user: [null, (req.user.id_user) ? req.user.id_user : req.user.id_f]}}
+            {attributes: ['id_tags', 'name'],where: [{id_user: null}, {id_user: (req.user.id_user) ? req.user.id_user : req.user.id_f}]}
         ).then(function(tags) {
             res.status(200).json({"tags":tags});
         }).catch(function (e) { /** Erreur dans la récupération des tags **/
