@@ -186,7 +186,7 @@ module.exports = function(app, passport) {
             res.status(302).json({ message: 'LIST INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion lists **/
         console.log("ERROR : Lors de l'insertion lists");
-            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' , error: e});
         });
     });
 
@@ -203,6 +203,37 @@ module.exports = function(app, passport) {
             res.status(200).json({"lists":lists});
         }).catch(function (e) { /** Erreur dans la récupération des lists **/
         console.log("ERROR : Lors de la récupération des lists");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+    /**
+     * ADD THINGS
+     */
+    app.post("/api/new/thing",loggedIn,function(req,res) {
+        Thing.mything.create({
+            "name":         req.query.name,
+            "id_list":      0
+        }).then(function (result) {
+            res.status(302).json({ message: 'THINGS INSERTED !' });
+        }).catch(function (e) { /** Erreur dans l'insertion THINGS **/
+        console.log("ERROR : Lors de l'insertion THINGS");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * GET THINGS
+     */
+    app.get("/api/get/thingsInList",loggedIn,function(req,res) {
+        Thing.mything.findAll(
+            {
+                attributes: ['id_list', 'name', 'id_user'],
+                where: {id_list : 0}
+            }
+        ).then(function(lists) {
+            res.status(200).json({"things":things});
+        }).catch(function (e) { /** Erreur dans la récupération des things **/
+        console.log("ERROR : Lors de la récupération des things");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });

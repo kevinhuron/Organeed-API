@@ -5,11 +5,11 @@ var mysql = require("mysql");
 
 var sequelize = require('../CONFIG/dbconnect').sequelize;
 
-var mytags = sequelize.define('THINGS', {
+var mything = sequelize.define('THINGS', {
     id_thing: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,
-        field: 'id_tags',
+        field: 'id_thing',
         autoIncrement: true,
         primaryKey: true
     },
@@ -29,4 +29,4 @@ var mytags = sequelize.define('THINGS', {
     tableName: 'THINGS'
 });
 
-module.exports = {"mytags": mytags};
+module.exports = {"mything": mything};
