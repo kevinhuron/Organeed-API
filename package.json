@@ -3,29 +3,30 @@
   "version": "1.0.0",
   "description": "RESTful API for Organeed app",
   "main": "server.js",
-  "private" : "true",
-   "scripts": {
+  "private": "true",
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/npm/npm.git"
   },
   "author": "HURON KEVIN, RAFINA DANY, BELLAICHE MIKAEL, RAVIER THIBAUD, MARX VINCENT",
   "dependencies": {
-  "cookie-parser": "^1.4.3",
-  "express": "^4.14.0",
-  "express-session": "^1.14.1",
-  "method-override": "^2.3.6",
-  "moment": "^2.14.1",
-  "morgan": "^1.7.0",
-  "multer": "^1.2.0",
-  "mysql": "^2.11.1",
-  "passport": "^0.3.2",
-  "passport-localapikey": "0.0.3",
-  "bcrypt-nodejs": "0.0.3",
-  "passport-local": "^1.0.0",
-  "sequelize": "^3.24.3"
-}
+    "bcrypt-nodejs": "0.0.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "method-override": "^2.3.6",
+    "moment": "^2.14.1",
+    "morgan": "^1.7.0",
+    "multer": "^1.2.0",
+    "mysql": "^2.11.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-localapikey": "0.0.3",
+    "sequelize": "^3.24.3"
+  }
 }

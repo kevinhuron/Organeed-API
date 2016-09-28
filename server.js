@@ -10,6 +10,7 @@ var methodOverride  = require('method-override');
 var cookieParser    = require('cookie-parser');
 var bcrypt          = require('bcrypt-nodejs');
 var mysql           = require("mysql");
+var cors            = require("cors");
 //var route           = require('./APP/ROUTES/route.js');
 //var Sequelize       = require("sequelize");
 
@@ -32,6 +33,7 @@ app.use(cookieParser());
 //app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors.({origin : '*'}));
 //app.use(methodOverride('X-HTTP-Method-Override'));
 //app.use(express.static(__dirname + '/public'));
 app.use(session({secret: 'appsecret', resave: true, saveUninitialized: true}));
