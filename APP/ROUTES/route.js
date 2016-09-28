@@ -199,7 +199,7 @@ module.exports = function(app, passport) {
                 attributes: ['id_list', 'name', 'id_user'],
                 where: {id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f}
             }
-        ).then(function(tags) {
+        ).then(function(lists) {
             res.status(200).json({"lists":lists});
         }).catch(function (e) { /** Erreur dans la récupération des lists **/
         console.log("ERROR : Lors de la récupération des lists");
