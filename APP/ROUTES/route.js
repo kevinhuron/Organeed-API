@@ -6,6 +6,8 @@ var User        = require('../MODELS/users');
 var Event       = require('../MODELS/events');
 var Comment     = require('../MODELS/comments');
 var Tag         = require('../MODELS/tags');
+var List         = require('../MODELS/lists');
+var Thing         = require('../MODELS/things');
 var bcrypt      = require('bcrypt-nodejs');
 //var multer    = require('multer');
 var moment      = require('moment');
@@ -169,6 +171,38 @@ module.exports = function(app, passport) {
             res.status(302).json({ message: 'TAGS INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion TAGS **/
         console.log("ERROR : Lors de l'insertion TAGS");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * ADD LIST
+     */
+    app.post("/api/new/list",loggedIn,function(req,res) {
+        List.mylists.create({
+            "name":         req.query.name,
+            "id_user":      (req.user.id_user) ? req.user.id_user : req.user.id_f
+        }).then(function (result) {
+            res.status(302).json({ message: 'LIST INSERTED !' });
+        }).catch(function (e) { /** Erreur dans l'insertion lists **/
+        console.log("ERROR : Lors de l'insertion lists");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * GET LIST
+     */
+    app.get("/api/get/lists",loggedIn,function(req,res) {
+        List.mylists.findAll(
+            {
+                attributes: ['id_list', 'name', 'id_user'],
+                where: {id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f}
+            }
+        ).then(function(tags) {
+            res.status(200).json({"lists":lists});
+        }).catch(function (e) { /** Erreur dans la récupération des lists **/
+        console.log("ERROR : Lors de la récupération des lists");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
