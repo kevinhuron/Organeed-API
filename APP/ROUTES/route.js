@@ -212,7 +212,8 @@ module.exports = function(app, passport) {
     app.post("/api/new/thing",loggedIn,function(req,res) {
         Thing.mything.create({
             "name":         req.query.name,
-            "id_list":      3
+            "id_list":      3,
+            "checked":      0
         }).then(function (result) {
             res.status(302).json({ message: 'THINGS INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion THINGS **/
@@ -230,7 +231,7 @@ module.exports = function(app, passport) {
                 attributes: ['id_list', 'name', 'id_user'],
                 where: {id_list : 3}
             }
-        ).then(function(lists) {
+        ).then(function(things) {
             res.status(200).json({"things":things});
         }).catch(function (e) { /** Erreur dans la récupération des things **/
         console.log("ERROR : Lors de la récupération des things");
