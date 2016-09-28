@@ -111,7 +111,7 @@ module.exports = function(app, passport) {
      * GET COMMENTS
      */
     app.get("/api/get/comments",loggedIn,function(req,res) {
-        Tag.mytags.findAll(
+        Comment.mycomments.findAll(
             {
                 attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
                 where: {id_event : 6}                                                   // TODO : ID EVENT
