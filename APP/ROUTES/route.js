@@ -24,7 +24,9 @@ module.exports = function(app, passport) {
         //res.json({"Message" : "YEAH CONNECTED TO THE REST API ROUTER the fucking better ahah"});
     });
 
-    /****************** Register ****************/
+    /**
+     * REGISTER
+     */
     app.post("/api/register", passport.authenticate('local-signup', {
         successRedirect : '/api/successSignUp',
         failureRedirect : '/api/failureSignUp'
@@ -37,9 +39,10 @@ module.exports = function(app, passport) {
     app.get('/api/failureSignUp', function(req, res) {
         res.status(401).json({ message: 'NOK' });
     });
-    /****************** End Register *************/
 
-    /****************** Login ********************/
+    /**
+     * LOGIN
+     */
     app.post('/api/login', passport.authenticate('local-login', {
         successRedirect : '/api/successLogJson',
         failureRedirect : '/api/failureLogJson'
@@ -52,19 +55,22 @@ module.exports = function(app, passport) {
     app.get('/api/failureLogJson', function(req, res) {
         res.status(401).json({ message: 'NOK' });
     });
-    /**************** End Login ****************/
 
-    /**************** Logout ****************/
+    /**
+     * LOGOUT
+     */
     app.get('/api/logout', function(req, res) {
         req.logout();
         //res.redirect('/');
     });
-    /**************** End Logout ****************/
 
     app.get('/api/loginView', function(req, res) {
         res.status(200).json({ message: 'LOGIN VIEW' });
     });
 
+    /**
+     * ADD EVETNS
+     */
     app.post("/api/new/event",loggedIn,function(req,res) {
         Event.myevents.create({
             "title":        req.query.title,
@@ -80,6 +86,10 @@ module.exports = function(app, passport) {
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
+
+    /**
+     * ADD COMMENTS
+     */
     app.post("/api/new/comment",loggedIn,function(req,res) {
         // TODO = NEED ID EVENT
         Comment.mycomments.create({
@@ -87,7 +97,7 @@ module.exports = function(app, passport) {
             "content":      req.query.content,
             "date_comment": moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
             "img":          (req.query.img) ? req.query.img : null,
-            "id_event":     /*req.query.id_event*/6,                                         // TODO : ID EVENT
+            "id_event":     /*req.query.id_event*/6,                                    // TODO : ID EVENT
             "id_comment_1": (req.query.id_comment_1) ? req.query.id_comment_1 : null    // TODO ; CHECK SI REPONSE A UN AUTRE COM
         }).then(function (result) {
             res.status(302).json({ message: 'COM INSERTED !' });
@@ -96,9 +106,33 @@ module.exports = function(app, passport) {
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
-    app.get("/api/tags",loggedIn,function(req,res) {
+
+    /**
+     * GET COMMENTS
+     */
+    app.get("/api/get/comments",loggedIn,function(req,res) {
         Tag.mytags.findAll(
-            {attributes: ['id_tags', 'name'],where: sequelize.or({id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f},{id_user : null})/*[{id_user: null}, {id_user: (req.user.id_user) ? req.user.id_user : req.user.id_f}]*/}
+            {
+                attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
+                where: {id_event : 6}                                                   // TODO : ID EVENT
+            }
+        ).then(function(comments) {
+            res.status(200).json({"comments":comments});
+        }).catch(function (e) { /** Erreur dans la récupération des comments **/
+        console.log("ERROR : Lors de la récupération des comments");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * GET TAGS
+     */
+    app.get("/api/get/tags",loggedIn,function(req,res) {
+        Tag.mytags.findAll(
+            {
+                attributes: ['id_tags', 'name'],
+                where: sequelize.or({id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f},{id_user : null})
+            }
         ).then(function(tags) {
             res.status(200).json({"tags":tags});
         }).catch(function (e) { /** Erreur dans la récupération des tags **/
