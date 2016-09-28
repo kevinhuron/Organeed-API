@@ -69,7 +69,7 @@ module.exports = function(app, passport) {
     });
 
     /**
-     * ADD EVETNS
+     * ADD EVENTS
      */
     app.post("/api/new/event",loggedIn,function(req,res) {
         Event.myevents.create({
@@ -83,6 +83,23 @@ module.exports = function(app, passport) {
             res.status(302).json({ message: 'EVENT INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion event **/
             console.log("ERROR : Lors de l'insertion event");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * GET EVENTS
+     */
+    app.get("/api/get/events",loggedIn,function(req,res) {
+        Event.myevents.findAll(
+            {
+                attributes: ['id_event', 'title', 'date_start', 'date_end', 'description', 'place', 'id_manager'],
+                where: {id_manager : 34}
+            }
+        ).then(function(events) {
+            res.status(200).json({"events":events});
+        }).catch(function (e) { /** Erreur dans la récupération des events **/
+        console.log("ERROR : Lors de la récupération des events");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
