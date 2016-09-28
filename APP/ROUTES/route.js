@@ -212,7 +212,7 @@ module.exports = function(app, passport) {
     app.post("/api/new/thing",loggedIn,function(req,res) {
         Thing.mything.create({
             "name":         req.query.name,
-            "id_list":      0
+            "id_list":      3
         }).then(function (result) {
             res.status(302).json({ message: 'THINGS INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion THINGS **/
@@ -228,7 +228,7 @@ module.exports = function(app, passport) {
         Thing.mything.findAll(
             {
                 attributes: ['id_list', 'name', 'id_user'],
-                where: {id_list : 0}
+                where: {id_list : 3}
             }
         ).then(function(lists) {
             res.status(200).json({"things":things});
