@@ -23,10 +23,20 @@ var myevents = sequelize.define('EVENTS', {
         allowNull: false,
         field: 'date_start'
     },
+    hour_start: {
+        type: sequelize.Sequelize.STRING,
+        allowNull: false,
+        field: 'hour_start'
+    },
     date_end: {
         type: sequelize.Sequelize.DATE,
         allowNull: false,
         field: 'date_end'
+    },
+    hour_end: {
+        type: sequelize.Sequelize.STRING,
+        allowNull: false,
+        field: 'hour_end'
     },
     description: {
         type: sequelize.Sequelize.STRING,

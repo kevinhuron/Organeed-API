@@ -77,7 +77,9 @@ module.exports = function(app, passport) {
         Event.myevents.create({
             "title":        req.query.title,
             "date_start":   req.query.date_start,
+            "hour_start":   req.query.hour_start,
             "date_end":     req.query.date_end,
+            "hour_end":     req.query.hour_end,
             "description":  (req.query.description) ? req.query.description : null,
             "place":        (req.query.place) ? req.query.place : null,
             "id_manager":   (req.user.id_user) ? req.user.id_user : req.user.id_f
