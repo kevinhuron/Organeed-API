@@ -316,7 +316,7 @@ module.exports = function(app, passport) {
             //where: {id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f}
             include: [{
                 model: Tag,
-                where: { id_comment: sequelize.col('TAG.id_comment') }
+                where: { id_tags: sequelize.col('TAG.id_tags') }
             }]
         }).then(function(comments) {
             res.status(200).json({"comments":comments});
