@@ -3,7 +3,7 @@
  */
 var mysql = require("mysql");
 
-var sequelize = require('../CONFIG/dbconnect').sequelize;
+var sequelize = require('../../CONFIG/dbconnect').sequelize;
 
 var mytagger = sequelize.define('LIST', {
     id_tags: {

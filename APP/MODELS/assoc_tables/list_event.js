@@ -3,7 +3,7 @@
  */
 var mysql = require("mysql");
 
-var sequelize = require('../CONFIG/dbconnect').sequelize;
+var sequelize = require('../../CONFIG/dbconnect').sequelize;
 
 var mylist_event = sequelize.define('LIST_EVENT', {
     id_list: {

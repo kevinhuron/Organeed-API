@@ -3,7 +3,7 @@
  */
 var mysql = require("mysql");
 
-var sequelize = require('../CONFIG/dbconnect').sequelize;
+var sequelize = require('../../CONFIG/dbconnect').sequelize;
 
 var mypresent = sequelize.define('PRESENT', {
     role: {
