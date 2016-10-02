@@ -9,12 +9,14 @@ var mylist_event = sequelize.define('LIST_EVENT', {
     id_list: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,
-        field: 'id_list'
+        field: 'id_list',
+        primaryKey: true
     },
     id_event: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,
-        field: 'id_event'
+        field: 'id_event',
+        primaryKey: true
     }
 }, {
     freezeTableName: true,

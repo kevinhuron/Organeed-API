@@ -14,12 +14,14 @@ var mypresent = sequelize.define('PRESENT', {
     id_user: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,
-        field: 'id_user'
+        field: 'id_user',
+        primaryKey: true
     },
     id_event: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,
-        field: 'id_event'
+        field: 'id_event',
+        primaryKey: true
     }
 }, {
     freezeTableName: true,
