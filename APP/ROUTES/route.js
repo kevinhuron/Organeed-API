@@ -266,7 +266,7 @@ module.exports = function(app, passport) {
      */
     app.post("/api/add/friends",loggedIn,function(req,res) {
         Friend.myfriends.create({
-            "id_user":         req.query.id_user,                                           // TODO: id de l'user par rapport à l'app
+            "id_user":         req.user.id_user,                                           // TODO: id de l'user par rapport à l'app
             "id_friends":      req.query.id_friends                                         // TODO: id de l'user par rapport à l'app
         }).then(function(result) {
             res.status(200).json({ message: 'LINK USER AND USER (FRIENDS) OKKK !' });
