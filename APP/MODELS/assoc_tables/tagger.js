@@ -18,7 +18,7 @@ var mytagger = sequelize.define('LIST', {
     }
 }, {
     freezeTableName: true,
-    tableName: 'LIST'
+    tableName: 'TAGGEr'
 });
 
 module.exports = {"mytagger": mytagger};

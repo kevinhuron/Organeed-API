@@ -6,8 +6,9 @@ var User        = require('../MODELS/users');
 var Event       = require('../MODELS/events');
 var Comment     = require('../MODELS/comments');
 var Tag         = require('../MODELS/tags');
-var List         = require('../MODELS/lists');
-var Thing         = require('../MODELS/things');
+var List        = require('../MODELS/lists');
+var Thing       = require('../MODELS/things');
+var Tagger      = require('../MODELS/assoc_tables/tagger');
 var bcrypt      = require('bcrypt-nodejs');
 //var multer    = require('multer');
 var moment      = require('moment');
@@ -114,12 +115,12 @@ module.exports = function(app, passport) {
     app.post("/api/new/comment",loggedIn,function(req,res) {
         // TODO = NEED ID EVENT
         Comment.mycomments.create({
-            "author":       req.query.author,
+            "author":       req.user.id_user,
             "content":      req.query.content,
             "date_comment": moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
             "img":          (req.query.img) ? req.query.img : null,
-            "id_event":     /*req.query.id_event*/6,                                    // TODO : ID EVENT
-            "id_comment_1": (req.query.id_comment_1) ? req.query.id_comment_1 : null    // TODO ; CHECK SI REPONSE A UN AUTRE COM
+            "id_event":     /*req.query.id_event*/6,                                    // TODO : ID EVENT par rapport à l'app
+            "id_comment_1": (req.query.id_comment_1) ? req.query.id_comment_1 : null    // TODO : CHECK SI REPONSE A UN AUTRE COM
         }).then(function (result) {
             res.status(302).json({ message: 'COM INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion comments **/
@@ -135,7 +136,7 @@ module.exports = function(app, passport) {
         Comment.mycomments.findAll(
             {
                 attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
-                where: {id_event : 6}                                                   // TODO : ID EVENT
+                where: {id_event : 6}                                                   // TODO : ID EVENT par rapport à l'app
             }
         ).then(function(comments) {
             res.status(200).json({"comments":comments,"user":req.user});
@@ -208,6 +209,7 @@ module.exports = function(app, passport) {
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
+
     /**
      * ADD THINGS
      */
@@ -237,6 +239,21 @@ module.exports = function(app, passport) {
             res.status(200).json({"things":things});
         }).catch(function (e) { /** Erreur dans la récupération des things **/
         console.log("ERROR : Lors de la récupération des things");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * LINK TAG AND COMMENT
+     */
+    app.get("/api/add/tagToComment",loggedIn,function(req,res) {
+        Tagger.mytagger.create({
+            "id_tags":         3,                                           // TODO: id du tag par rapport à l'app
+            "id_comment":      3                                            // TODO: id du comment par rapport à l'app
+        }).then(function(result) {
+            res.status(200).json({ message: 'LINK TAG AND COMMENT OKKK !' });
+        }).catch(function (e) { /** Erreur  **/
+        console.log("ERROR : Lors de l'association des tags et des comments");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
