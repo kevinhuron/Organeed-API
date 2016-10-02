@@ -248,8 +248,8 @@ module.exports = function(app, passport) {
      */
     app.post("/api/add/tagToComment",loggedIn,function(req,res) {
         Tagger.mytagger.create({
-            "id_tags":         3,                                           // TODO: id du tag par rapport à l'app
-            "id_comment":      3                                            // TODO: id du comment par rapport à l'app
+            "id_tags":         req.query.id_tags,                                           // TODO: id du tag par rapport à l'app
+            "id_comment":      req.query.id_comment                                         // TODO: id du comment par rapport à l'app
         }).then(function(result) {
             res.status(200).json({ message: 'LINK TAG AND COMMENT OKKK !' });
         }).catch(function (e) { /** Erreur  **/
