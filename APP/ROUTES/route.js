@@ -306,6 +306,25 @@ module.exports = function(app, passport) {
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
+
+    /**
+     * GET LIST COMMENTS BY TAG
+     */
+    app.get("/api/get/commentsByTag",loggedIn,function(req,res) {
+        Comment.mycomments.findAll({
+            attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
+            //where: {id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f}
+            include: [{
+                model: Tag,
+                where: { id_comment: sequelize.col('TAG.id_comment') }
+            }]
+        }).then(function(comments) {
+            res.status(200).json({"comments":comments});
+        }).catch(function (e) { /** Erreur dans la récupération des lists **/
+        console.log("ERROR : Lors de la récupération des lists");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
 };
 
 function loggedIn(req, res, next) {
