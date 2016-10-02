@@ -107,7 +107,7 @@ module.exports = function(app, passport) {
         ).then(function(events) {
             res.status(200).json({"events":events,"user":req.user});
         }).catch(function (e) { /** Erreur dans la récupération des events **/
-        console.log("ERROR : Lors de la récupération des events");
+            console.log("ERROR : Lors de la récupération des events");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -144,7 +144,7 @@ module.exports = function(app, passport) {
         ).then(function(comments) {
             res.status(200).json({"comments":comments,"user":req.user});
         }).catch(function (e) { /** Erreur dans la récupération des comments **/
-        console.log("ERROR : Lors de la récupération des comments");
+            console.log("ERROR : Lors de la récupération des comments");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -176,7 +176,7 @@ module.exports = function(app, passport) {
         }).then(function (result) {
             res.status(302).json({ message: 'TAGS INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion TAGS **/
-        console.log("ERROR : Lors de l'insertion TAGS");
+            console.log("ERROR : Lors de l'insertion TAGS");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -191,7 +191,7 @@ module.exports = function(app, passport) {
         }).then(function (result) {
             res.status(302).json({ message: 'LIST INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion lists **/
-        console.log("ERROR : Lors de l'insertion lists");
+            console.log("ERROR : Lors de l'insertion lists");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' , error: e});
         });
     });
@@ -208,7 +208,7 @@ module.exports = function(app, passport) {
         ).then(function(lists) {
             res.status(200).json({"lists":lists});
         }).catch(function (e) { /** Erreur dans la récupération des lists **/
-        console.log("ERROR : Lors de la récupération des lists");
+            console.log("ERROR : Lors de la récupération des lists");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -224,7 +224,7 @@ module.exports = function(app, passport) {
         }).then(function (result) {
             res.status(302).json({ message: 'THINGS INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion THINGS **/
-        console.log("ERROR : Lors de l'insertion THINGS");
+            console.log("ERROR : Lors de l'insertion THINGS");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -241,7 +241,7 @@ module.exports = function(app, passport) {
         ).then(function(things) {
             res.status(200).json({"things":things});
         }).catch(function (e) { /** Erreur dans la récupération des things **/
-        console.log("ERROR : Lors de la récupération des things");
+            console.log("ERROR : Lors de la récupération des things");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -287,7 +287,7 @@ module.exports = function(app, passport) {
         }).then(function(result) {
             res.status(200).json({ message: 'LINK USER AND EVENT WITH ROLE OKKK !' });
         }).catch(function (e) { /** Erreur **/
-        console.log("ERROR : Lors de l'association des users et des events avec leur rôle");
+                console.log("ERROR : Lors de l'association des users et des events avec leur rôle");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -302,7 +302,7 @@ module.exports = function(app, passport) {
         }).then(function(result) {
             res.status(200).json({ message: 'LINK LIST AND EVENT OKKK !' });
         }).catch(function (e) { /** Erreur **/
-        console.log("ERROR : Lors de l'association des lists et des events");
+            console.log("ERROR : Lors de l'association des lists et des events");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
@@ -311,17 +311,15 @@ module.exports = function(app, passport) {
      * GET LIST COMMENTS BY TAG
      */
     app.get("/api/get/commentsByTag",loggedIn,function(req,res) {
-        Comment.mycomments.findAll({
-            attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
-            //where: {id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f}
-            include: [{
-                model: Tag,
-                where: { id_tags: sequelize.col('TAG.id_tags') }
-            }]
-        }).then(function(comments) {
+        sequelize.query(
+            "SELECT `COMMENTS`.`id_comment`, `COMMENTS`.`author`, `COMMENTS`.`content`, `COMMENTS`.`date_comment`, " +
+            "`COMMENTS`.`img`, `COMMENTS`.`id_event`, `COMMENTS`.`id_comment_1` " +
+            "FROM `COMMENTS` INNER JOIN `TAGGER` ON `COMMENTS`.`id_comment` = `TAGGER`.`id_comment` WHERE `TAGGER`.`id_tags` IN(:id_tag)",
+            { replacements: { id_tag: [req.query.id_tags] }, type: sequelize.QueryTypes.SELECT }
+        ).then(function(comments) {
             res.status(200).json({"comments":comments});
-        }).catch(function (e) { /** Erreur dans la récupération des lists **/
-        console.log("ERROR : Lors de la récupération des lists");
+        }).catch(function (e) { /** Erreur dans la récupération des comments by tag **/
+            console.log("ERROR : Lors de la récupération des comments by tag");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
