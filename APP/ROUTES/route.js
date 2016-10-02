@@ -9,6 +9,9 @@ var Tag         = require('../MODELS/tags');
 var List        = require('../MODELS/lists');
 var Thing       = require('../MODELS/things');
 var Tagger      = require('../MODELS/assoc_tables/tagger');
+var Friend      = require('../MODELS/assoc_tables/friends');
+var Present     = require('../MODELS/assoc_tables/present');
+var List_event  = require('../MODELS/assoc_tables/list_event');
 var bcrypt      = require('bcrypt-nodejs');
 //var multer    = require('multer');
 var moment      = require('moment');
@@ -252,8 +255,54 @@ module.exports = function(app, passport) {
             "id_comment":      req.query.id_comment                                         // TODO: id du comment par rapport à l'app
         }).then(function(result) {
             res.status(200).json({ message: 'LINK TAG AND COMMENT OKKK !' });
-        }).catch(function (e) { /** Erreur  **/
+        }).catch(function (e) { /** Erreur **/
         console.log("ERROR : Lors de l'association des tags et des comments");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * LINK USER AND USER (FRIENDS)
+     */
+    app.post("/api/add/friends",loggedIn,function(req,res) {
+        Friend.myfriends.create({
+            "id_user":         req.query.id_user,                                           // TODO: id de l'user par rapport à l'app
+            "id_friends":      req.query.id_friends                                         // TODO: id de l'user par rapport à l'app
+        }).then(function(result) {
+            res.status(200).json({ message: 'LINK USER AND USER (FRIENDS) OKKK !' });
+        }).catch(function (e) { /** Erreur **/
+        console.log("ERROR : Lors de l'association des users et des friends");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * LINK USER AND EVENT WITH ROLE
+     */
+    app.post("/api/add/userInEvent",loggedIn,function(req,res) {
+        Present.mypresent.create({
+            "role":         req.query.role,
+            "id_user":      req.query.id_user,                                         // TODO: id de l'user par rapport à l'app
+            "id_event":     req.query.id_event                                         // TODO: id de l'event par rapport à l'app
+        }).then(function(result) {
+            res.status(200).json({ message: 'LINK USER AND EVENT WITH ROLE OKKK !' });
+        }).catch(function (e) { /** Erreur **/
+        console.log("ERROR : Lors de l'association des users et des events avec leur rôle");
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+
+    /**
+     * LINK LIST AND EVENT
+     */
+    app.post("/api/add/listInEvent",loggedIn,function(req,res) {
+        List_event.mylist_event.create({
+            "id_list":      req.query.id_list,                                         // TODO: id de la list par rapport à l'app
+            "id_event":     req.query.id_event                                         // TODO: id de l'event par rapport à l'app
+        }).then(function(result) {
+            res.status(200).json({ message: 'LINK LIST AND EVENT OKKK !' });
+        }).catch(function (e) { /** Erreur **/
+        console.log("ERROR : Lors de l'association des lists et des events");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
