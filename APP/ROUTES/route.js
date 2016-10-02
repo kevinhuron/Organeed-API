@@ -246,7 +246,7 @@ module.exports = function(app, passport) {
     /**
      * LINK TAG AND COMMENT
      */
-    app.get("/api/add/tagToComment",loggedIn,function(req,res) {
+    app.post("/api/add/tagToComment",loggedIn,function(req,res) {
         Tagger.mytagger.create({
             "id_tags":         3,                                           // TODO: id du tag par rapport à l'app
             "id_comment":      3                                            // TODO: id du comment par rapport à l'app
