@@ -315,7 +315,7 @@ module.exports = function(app, passport) {
             "SELECT `COMMENTS`.`id_comment`, `COMMENTS`.`author`, `COMMENTS`.`content`, `COMMENTS`.`date_comment`, " +
             "`COMMENTS`.`img`, `COMMENTS`.`id_event`, `COMMENTS`.`id_comment_1` " +
             "FROM `COMMENTS` INNER JOIN `TAGGER` ON `COMMENTS`.`id_comment` = `TAGGER`.`id_comment` WHERE `TAGGER`.`id_tags` IN(:id_tag)",
-            { replacements: { id_tag: [req.query.id_tags] }, type: sequelize.QueryTypes.SELECT }
+            { replacements: { id_tag: req.query.id_tags }, type: sequelize.QueryTypes.SELECT }
         ).then(function(comments) {
             res.status(200).json({"comments":comments});
         }).catch(function (e) { /** Erreur dans la récupération des comments by tag **/
