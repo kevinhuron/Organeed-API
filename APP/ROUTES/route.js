@@ -88,7 +88,7 @@ module.exports = function(app, passport) {
             "place":        (req.query.place) ? req.query.place : null,
             "id_manager":   (req.user.id_user) ? req.user.id_user : req.user.id_f
         }).then(function (result) {
-            res.status(302).json({ message: 'EVENT INSERTED !', code:'200' });
+            res.status(200).json({ message: 'EVENT INSERTED !', code:'200' });
         }).catch(function (e) { /** Erreur dans l'insertion event **/
             console.log("ERROR : Lors de l'insertion event");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !', code:'100' });
@@ -125,7 +125,7 @@ module.exports = function(app, passport) {
             "id_event":     /*req.query.id_event*/6,                                    // TODO : ID EVENT par rapport à l'app
             "id_comment_1": (req.query.id_comment_1) ? req.query.id_comment_1 : null    // TODO : CHECK SI REPONSE A UN AUTRE COM
         }).then(function (result) {
-            res.status(302).json({ message: 'COM INSERTED !' });
+            res.status(200).json({ message: 'COM INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion comments **/
             console.log("ERROR : Lors de l'insertion comments");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
@@ -174,7 +174,7 @@ module.exports = function(app, passport) {
             "name":         req.query.name,
             "id_user":      (req.user.id_user) ? req.user.id_user : req.user.id_f
         }).then(function (result) {
-            res.status(302).json({ message: 'TAGS INSERTED !' });
+            res.status(200).json({ message: 'TAGS INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion TAGS **/
             console.log("ERROR : Lors de l'insertion TAGS");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
@@ -189,7 +189,7 @@ module.exports = function(app, passport) {
             "name":         req.query.name,
             "id_user":      (req.user.id_user) ? req.user.id_user : req.user.id_f
         }).then(function (result) {
-            res.status(302).json({ message: 'LIST INSERTED !' });
+            res.status(200).json({ message: 'LIST INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion lists **/
             console.log("ERROR : Lors de l'insertion lists");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' , error: e});
@@ -222,7 +222,7 @@ module.exports = function(app, passport) {
             "id_list":      3,
             "checked":      0
         }).then(function (result) {
-            res.status(302).json({ message: 'THINGS INSERTED !' });
+            res.status(200).json({ message: 'THINGS INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion THINGS **/
             console.log("ERROR : Lors de l'insertion THINGS");
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
