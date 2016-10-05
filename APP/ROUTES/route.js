@@ -80,13 +80,13 @@ module.exports = function(app, passport) {
     app.post("/api/new/event",loggedIn,function(req,res) {
         console.log(req);
         Event.myevents.create({
-            "title":        req.query.title,
-            "date_start":   req.query.date_start,
-            "hour_start":   req.query.hour_start,
-            "date_end":     req.query.date_end,
-            "hour_end":     req.query.hour_end,
-            "description":  (req.query.description) ? req.query.description : null,
-            "place":        (req.query.place) ? req.query.place : null,
+            "title":        req.body.title,
+            "date_start":   req.body.date_start,
+            "hour_start":   req.body.hour_start,
+            "date_end":     req.body.date_end,
+            "hour_end":     req.body.hour_end,
+            "description":  (req.body.description) ? req.body.description : null,
+            "place":        (req.body.place) ? req.body.place : null,
             "id_manager":   (req.user.id_user) ? req.user.id_user : req.user.id_f
         }).then(function (result) {
             res.status(200).json({ message: 'EVENT INSERTED !', code:'200' });
