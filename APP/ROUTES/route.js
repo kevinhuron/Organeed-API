@@ -91,7 +91,8 @@ module.exports = function(app, passport) {
             res.status(200).json({ message: 'EVENT INSERTED !', code:'200' });
         }).catch(function (e) { /** Erreur dans l'insertion event **/
             console.log("ERROR : Lors de l'insertion event");
-            res.status(400).json({ message: 'ERROR - Une erreur est survenue !', code:'100', error:e });
+            console.log("ERROR : " + e);
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !', code:'100'});
         });
     });
 
