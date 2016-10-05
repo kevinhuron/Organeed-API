@@ -88,10 +88,10 @@ module.exports = function(app, passport) {
             "place":        (req.query.place) ? req.query.place : null,
             "id_manager":   (req.user.id_user) ? req.user.id_user : req.user.id_f
         }).then(function (result) {
-            res.status(302).json({ message: 'EVENT INSERTED !' });
+            res.status(302).json({ message: 'EVENT INSERTED !', code:'200' });
         }).catch(function (e) { /** Erreur dans l'insertion event **/
             console.log("ERROR : Lors de l'insertion event");
-            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !', code:'100' });
         });
     });
 
@@ -101,7 +101,7 @@ module.exports = function(app, passport) {
     app.get("/api/get/eventsByManager",loggedIn,function(req,res) {
         Event.myevents.findAll(
             {
-                attributes: ['id_event', 'title', 'date_start', 'date_end', 'description', 'place', 'id_manager'],
+                attributes: ['id_event', 'title', 'date_start', 'hout_start', 'date_end', 'hour_end', 'description', 'place', 'id_manager'],
                 where: {id_manager : 34}
             }
         ).then(function(events) {
