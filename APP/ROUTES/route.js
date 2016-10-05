@@ -78,7 +78,6 @@ module.exports = function(app, passport) {
      * ADD EVENTS
      */
     app.post("/api/new/event",loggedIn,function(req,res) {
-        console.log(req);
         Event.myevents.create({
             "title":        req.body.title,
             "date_start":   req.body.date_start,
