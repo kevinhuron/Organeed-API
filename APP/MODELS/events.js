@@ -15,8 +15,7 @@ var myevents = sequelize.define('EVENTS', {
     title: {
         type: sequelize.Sequelize.STRING,
         allowNull: false,
-        field: 'title',
-        validate: {isAlphanumeric: true}
+        field: 'title'
     },
     date_start: {
         type: sequelize.Sequelize.DATE,
