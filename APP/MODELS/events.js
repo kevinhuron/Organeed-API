@@ -24,7 +24,7 @@ var myevents = sequelize.define('EVENTS', {
         allowNull: false,
         field: 'date_start',
         get: function() {
-            return moment.utc(this.getDataValue('date_start')).format('DD-MM-YYYY');
+            return moment.utc(this.getDataValue('date_start')).format('DD/MM/YYYY');
         }
     },
     hour_start: {
@@ -37,7 +37,7 @@ var myevents = sequelize.define('EVENTS', {
         allowNull: false,
         field: 'date_end',
         get: function() {
-            return moment.utc(this.getDataValue('date_end')).format('DD-MM-YYYY');
+            return moment.utc(this.getDataValue('date_end')).format('DD/MM/YYYY');
         }
     },
     hour_end: {
