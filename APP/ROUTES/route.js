@@ -59,7 +59,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/api/failureLogJson', function(req, res) {
-        res.status(401).json({ message: 'NOK' });
+        res.status(200).json({ message: 'NOK' });
     });
 
     /**
