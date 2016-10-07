@@ -30,17 +30,17 @@ require('./APP/CONFIG/passport')(passport);
 
 app.use(morgan('dev'));
 app.use(cookieParser());
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({origin : 'http://localhost:8100'}));
+app.use(cors());
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-//app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(methodOverride('X-HTTP-Method-Override'));
 //app.use(express.static(__dirname + '/public'));
 app.use(session({secret: 'appsecret', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
