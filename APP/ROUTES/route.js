@@ -67,7 +67,7 @@ module.exports = function(app, passport) {
      */
     app.get('/api/logout', function(req, res) {
         req.logout();
-        //res.redirect('/');
+        res.status(200).json({ message: 'LOGOUTOK' });
     });
 
     app.get('/api/loginView', function(req, res) {
