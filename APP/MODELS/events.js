@@ -18,7 +18,7 @@ var myevents = sequelize.define('EVENTS', {
         field: 'title'
     },
     date_start: {
-        type: sequelize.Sequelize.DATE,
+        type: sequelize.Sequelize.DATEONLY,
         allowNull: false,
         field: 'date_start'
     },
@@ -28,7 +28,7 @@ var myevents = sequelize.define('EVENTS', {
         field: 'hour_start'
     },
     date_end: {
-        type: sequelize.Sequelize.DATE,
+        type: sequelize.Sequelize.DATEONLY,
         allowNull: false,
         field: 'date_end'
     },
