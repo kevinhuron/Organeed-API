@@ -3,6 +3,8 @@
  */
 var mysql       = require("mysql");
 var sequelize   = require('../CONFIG/dbconnect').sequelize;
+var moment      = require('moment');
+moment.locale('fr');
 
 var myevents = sequelize.define('EVENTS', {
     id_event: {
@@ -20,7 +22,10 @@ var myevents = sequelize.define('EVENTS', {
     date_start: {
         type: sequelize.Sequelize.DATEONLY,
         allowNull: false,
-        field: 'date_start'
+        field: 'date_start',
+        get: function() {
+            return moment.utc(this.getDataValue('date_start')).format('YYYY-MM-DD');
+        }
     },
     hour_start: {
         type: sequelize.Sequelize.STRING,
