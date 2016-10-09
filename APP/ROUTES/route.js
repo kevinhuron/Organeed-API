@@ -104,7 +104,8 @@ module.exports = function(app, passport) {
         Event.myevents.findAll(
             {
                 attributes: ['id_event', 'title', 'date_start', 'hour_start', 'date_end', 'hour_end', 'description', 'place', 'id_manager'],
-                where: {id_manager : req.user.id_user}
+                where: {id_manager : req.user.id_user},
+                order: 'id_event DESC'
             }
         ).then(function(events) {
             res.status(200).json({"events":events,"user":req.user});
