@@ -122,11 +122,11 @@ module.exports = function(app, passport) {
         // TODO = NEED ID EVENT
         Comment.mycomments.create({
             "author":       req.user.id_user,
-            "content":      req.query.content,
+            "content":      req.body.content,
             "date_comment": moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
-            "img":          (req.query.img) ? req.query.img : null,
-            "id_event":     /*req.query.id_event*/6,                                    // TODO : ID EVENT par rapport à l'app
-            "id_comment_1": (req.query.id_comment_1) ? req.query.id_comment_1 : null    // TODO : CHECK SI REPONSE A UN AUTRE COM
+            "img":          (req.body.img) ? req.body.img : null,
+            "id_event":     req.body.id_event,                                    // TODO : ID EVENT par rapport à l'app
+            "id_comment_1": (req.body.id_comment_1) ? req.body.id_comment_1 : null    // TODO : CHECK SI REPONSE A UN AUTRE COM
         }).then(function (result) {
             res.status(200).json({ message: 'COM INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion comments **/
