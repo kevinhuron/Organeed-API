@@ -142,7 +142,7 @@ module.exports = function(app, passport) {
         Comment.mycomments.findAll(
             {
                 attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
-                where: {id_event : 6}                                                   // TODO : ID EVENT par rapport à l'app
+                where: {id_event : req.body.id_event}                                                   // TODO : ID EVENT par rapport à l'app
             }
         ).then(function(comments) {
             res.status(200).json({"comments":comments,"user":req.user});
