@@ -101,6 +101,7 @@ module.exports = function(app, passport) {
      * GET EVENTS BY MANAGER
      */
     app.get("/api/get/eventsByManager",loggedIn,function(req,res) {
+        console.log(req);
         Event.myevents.findAll(
             {
                 attributes: ['id_event', 'title', 'date_start', 'hour_start', 'date_end', 'hour_end', 'description', 'place', 'id_manager'],
