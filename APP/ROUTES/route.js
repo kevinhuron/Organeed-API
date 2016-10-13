@@ -55,7 +55,7 @@ module.exports = function(app, passport) {
     }));
 
     app.get('/api/successLogJson', function(req, res) {
-        res.status(200).json({ message: 'OK' });
+        res.status(200).json({ message: 'OK', userid: req.user.id_user });
     });
 
     app.get('/api/failureLogJson', function(req, res) {
