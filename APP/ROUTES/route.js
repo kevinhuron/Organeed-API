@@ -102,12 +102,17 @@ module.exports = function(app, passport) {
      */
     app.get("/api/get/eventsByManager",loggedIn,function(req,res) {
         console.log(req);
-        Event.myevents.findAll(
+        /*Event.myevents.findAll(
             {
                 attributes: ['id_event', 'title', 'date_start', 'hour_start', 'date_end', 'hour_end', 'description', 'place', 'id_manager'],
                 where: {id_manager : req.user.id_user},
                 order: 'id_event DESC'
-            }
+            } // CONCAT(title, ' ', place) LIKE '%test%';
+        ).*/sequelize.query(
+            "SELECT `EVENTS`.`id_event`, `EVENTS`.`title`, `EVENTS`.`date_start`, `COMMENTS`.`hour_start`, " +
+            "`EVENTS`.`date_end`, `EVENTS`.`hour_end`, `EVENTS`.`description`, `EVENTS`.`place`, `EVENTS`.`id_manager` " +
+            "FROM `EVENTS` WHERE `EVENTS`.`id_manager` = :id_manager " + (req.query.querySearch) ? 'AND CONCAT(title, " ", place) LIKE "% :querytext %;"' : ';',
+            { replacements: { id_manager: req.user.id_user, querytext: req.query.querySearch }, type: sequelize.QueryTypes.SELECT }
         ).then(function(events) {
             res.status(200).json({"events":events,"user":req.user});
         }).catch(function (e) { /** Erreur dans la récupération des events **/
