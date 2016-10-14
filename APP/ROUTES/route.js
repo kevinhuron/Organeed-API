@@ -113,7 +113,7 @@ module.exports = function(app, passport) {
             sequelize.query(
                 "SELECT `EVENTS`.`id_event`, `EVENTS`.`title`, `EVENTS`.`date_start`, `EVENTS`.`hour_start`, " +
                 "`EVENTS`.`date_end`, `EVENTS`.`hour_end`, `EVENTS`.`description`, `EVENTS`.`place`, `EVENTS`.`id_manager` " +
-                "FROM `EVENTS` WHERE `EVENTS`.`id_manager` = :id_manager AND CONCAT(title, ' ', place) LIKE :querytext ",
+                "FROM `EVENTS` WHERE `EVENTS`.`id_manager` = :id_manager AND CONCAT(title, ' ', place) LIKE :querytext ORDER BY id_event DESC",
                 { replacements: { id_manager: req.user.id_user, querytext: '%'+req.query.querySearch+'%' }, type: sequelize.QueryTypes.SELECT }
             ).then(function(events) {
                 res.status(200).json({"events":events,"user":req.user});
@@ -125,7 +125,7 @@ module.exports = function(app, passport) {
             sequelize.query(
                 "SELECT `EVENTS`.`id_event`, `EVENTS`.`title`, `EVENTS`.`date_start`, `EVENTS`.`hour_start`, " +
                 "`EVENTS`.`date_end`, `EVENTS`.`hour_end`, `EVENTS`.`description`, `EVENTS`.`place`, `EVENTS`.`id_manager` " +
-                "FROM `EVENTS` WHERE `EVENTS`.`id_manager` = :id_manager " ,
+                "FROM `EVENTS` WHERE `EVENTS`.`id_manager` = :id_manager ORDER BY id_event DESC" ,
                 { replacements: { id_manager: req.user.id_user }, type: sequelize.QueryTypes.SELECT }
             ).then(function(events) {
                 res.status(200).json({"events":events,"user":req.user});
