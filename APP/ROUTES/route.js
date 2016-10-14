@@ -184,7 +184,7 @@ module.exports = function(app, passport) {
     app.get("/api/get/tags",loggedIn,function(req,res) {
         Tag.mytags.findAll(
             {
-                attributes: ['id_tags', 'name'],
+                attributes: ['id_tags', 'name', 'color'],
                 where: sequelize.or({id_user : (req.user.id_user) ? req.user.id_user : req.user.id_f},{id_user : null})
             }
         ).then(function(tags) {
