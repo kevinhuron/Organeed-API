@@ -193,6 +193,11 @@ module.exports = function(app, passport) {
      * GET TAGS BY ID
      */
     app.get("/api/get/tagsById",loggedIn,function(req,res) {
+        var string = req.query.id_tag;
+        var array = string.split(",");
+        console.log(array);
+        console.log(array[0]);
+        console.log(array[1]);
         Tag.mytags.findAll(
             {
                 attributes: ['id_tags', 'name', 'color'],
