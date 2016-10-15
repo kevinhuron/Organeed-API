@@ -196,7 +196,7 @@ module.exports = function(app, passport) {
         Tag.mytags.findAll(
             {
                 attributes: ['id_tags', 'name', 'color'],
-                where: {id_tags : req.query.id_tag}
+                where: {id_tags : [req.query.id_tag]}
             }
         ).then(function(tags) {
             res.status(200).json({"tags":tags,"user":req.user});
