@@ -134,11 +134,6 @@ module.exports = function(app, passport) {
                 res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
             });
         }
-
-
-
-
-
     });
 
     /**
@@ -190,7 +185,23 @@ module.exports = function(app, passport) {
         ).then(function(tags) {
             res.status(200).json({"tags":tags,"user":req.user});
         }).catch(function (e) { /** Erreur dans la récupération des tags **/
-            console.log("ERROR : Lors de la récupération des tags = " + e);
+        console.log("ERROR : Lors de la récupération des tags = " + e);
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
+    /**
+     * GET TAGS BY ID
+     */
+    app.get("/api/get/tagsById",loggedIn,function(req,res) {
+        Tag.mytags.findAll(
+            {
+                attributes: ['id_tags', 'name', 'color'],
+                where: {id_tags : req.query.id_tag}
+            }
+        ).then(function(tags) {
+            res.status(200).json({"tags":tags,"user":req.user});
+        }).catch(function (e) { /** Erreur dans la récupération des tags by id **/
+        console.log("ERROR : Lors de la récupération des tags by id = " + e);
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
