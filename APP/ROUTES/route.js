@@ -149,7 +149,7 @@ module.exports = function(app, passport) {
             "id_event":     req.body.id_event,                                    // TODO : ID EVENT par rapport à l'app
             "id_comment_1": (req.body.id_comment_1) ? req.body.id_comment_1 : null    // TODO : CHECK SI REPONSE A UN AUTRE COM
         }).then(function (result) {
-            console.log(result);
+            console.log(result.dataValues.id_comment);
             res.status(200).json({ message: 'COM INSERTED !' });
         }).catch(function (e) { /** Erreur dans l'insertion comments **/
             console.log("ERROR : Lors de l'insertion comments = " + e);
