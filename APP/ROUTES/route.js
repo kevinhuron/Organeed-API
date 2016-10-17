@@ -217,6 +217,22 @@ module.exports = function(app, passport) {
             res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
         });
     });
+    /**
+     * GET TAGS ID
+     */
+    app.get("/api/get/tagIdByIdCom",loggedIn,function(req,res) {
+        Tagger.mytagger.findAll(
+            {
+                attributes: ['id_tags', 'id_comment'],
+                where: {id_comment : req.query.id_comment}
+            }
+        ).then(function(ids) {
+            res.status(200).json({"ids":ids,"user":req.user});
+        }).catch(function (e) { /** Erreur dans la récupération des tags by id **/
+        console.log("ERROR : Lors de la récupération des tags by id = " + e);
+            res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
+        });
+    });
 
     /**
      * ADD TAGS
