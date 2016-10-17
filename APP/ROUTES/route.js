@@ -233,7 +233,7 @@ module.exports = function (app, passport) {
     app.get("/api/get/tagColorByIdCom", loggedIn, function (req, res) {
         sequelize.query("SELECT color FROM TAGS INNER JOIN TAGGER ON TAGS.id_tags = TAGGER.id_tags INNER JOIN COMMENTS ON COMMENTS.id_comment = TAGGER.id_comment " +
             " WHERE TAGGER.id_comment = :id_comment",
-            {replacements: {id_event: req.query.id_comment}, type: sequelize.QueryTypes.SELECT}
+            {replacements: {id_comment: req.query.id_comment}, type: sequelize.QueryTypes.SELECT}
         ).then(function (result) {
             res.status(200).json({"result": result, "user": req.user});
         }).catch(function (e) {
