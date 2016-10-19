@@ -424,6 +424,36 @@ module.exports = function (app, passport) {
             res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
         });
     });
+
+    /**
+     * GET LAT LNG EVENTS BY MANAGER
+     */
+    app.get("/api/get/latLngEvents", loggedIn, function (req, res) {
+        Event.myevents.findAll(
+            {
+                attributes: ['id_event', 'lat', 'lng', 'id_manager'],
+                where: {id_manager: req.user.id_user}
+            }
+        ).then(function (result) {
+            res.status(200).json({"latlng": result});
+        }).catch(function (e) {
+            /** Erreur dans la récupération lat lng **/
+            console.log("ERROR : Lors de la récupération des lat lng = " + e);
+            res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
+        });
+        /*sequelize.query(
+            "SELECT `COMMENTS`.`id_comment`, `COMMENTS`.`author`, `COMMENTS`.`content`, `COMMENTS`.`date_comment`, " +
+            "`COMMENTS`.`img`, `COMMENTS`.`id_event`, `COMMENTS`.`id_comment_1` " +
+            "FROM `COMMENTS` INNER JOIN `TAGGER` ON `COMMENTS`.`id_comment` = `TAGGER`.`id_comment` WHERE `TAGGER`.`id_tags` IN(:id_tag)",
+            {replacements: {id_tag: [req.query.id_tags]}, type: sequelize.QueryTypes.SELECT}        // TODO: Ids tags par rapport à l'app
+        ).then(function (comments) {                                                                     // TODO: A envoyé en tant que ARRAY (je pense)
+            res.status(200).json({"comments": comments});                                                // TODO: Vérifié la query exécutée
+        }).catch(function (e) {
+            /** Erreur dans la récupération des comments by tag **
+            console.log("ERROR : Lors de la récupération des comments by tag = " + e);
+            res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
+        });*/
+    });
 };
 
 function loggedIn(req, res, next) {
