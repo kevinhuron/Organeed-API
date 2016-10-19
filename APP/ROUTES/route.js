@@ -114,7 +114,7 @@ module.exports = function (app, passport) {
         if (req.query.querySearch) {
             sequelize.query(
                 "SELECT `EVENTS`.`id_event`, `EVENTS`.`title`, `EVENTS`.`date_start`, `EVENTS`.`hour_start`, " +
-                "`EVENTS`.`date_end`, `EVENTS`.`hour_end`, `EVENTS`.`description`, `EVENTS`.`place`, `EVENTS`.`id_manager` " +
+                "`EVENTS`.`date_end`, `EVENTS`.`hour_end`, `EVENTS`.`description`, `EVENTS`.`place`, `EVENTS`.`lat`, `EVENTS`.`lng`, `EVENTS`.`id_manager` " +
                 "FROM `EVENTS` WHERE `EVENTS`.`id_manager` = :id_manager AND CONCAT(title, ' ', place) LIKE :querytext ORDER BY id_event DESC",
                 {
                     replacements: {id_manager: req.user.id_user, querytext: '%' + req.query.querySearch + '%'},
