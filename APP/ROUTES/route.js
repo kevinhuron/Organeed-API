@@ -425,7 +425,7 @@ module.exports = function (app, passport) {
         });
     });
 
-    /**
+    /** 
      * GET LAT LNG EVENTS BY MANAGER
      */
     app.get("/api/get/latLngEvents", loggedIn, function (req, res) {
