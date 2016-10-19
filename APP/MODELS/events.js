@@ -55,6 +55,16 @@ var myevents = sequelize.define('EVENTS', {
         allowNull: true,
         field: 'place'
     },
+    lat: {
+        type: sequelize.Sequelize.STRING,
+        allowNull: true,
+        field: 'lat'
+    },
+    lng: {
+        type: sequelize.Sequelize.STRING,
+        allowNull: true,
+        field: 'lng'
+    },
     id_manager: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,

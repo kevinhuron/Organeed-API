@@ -87,6 +87,8 @@ module.exports = function (app, passport) {
             "hour_end": req.body.hour_end,
             "description": (req.body.description) ? req.body.description : null,
             "place": (req.body.place) ? req.body.place : null,
+            "lat": (req.body.lat) ? req.body.lat : null,
+            "lng": (req.body.lng) ? req.body.lng : null,
             "id_manager": (req.user.id_user) ? req.user.id_user : req.user.id_f
         }).then(function (result) {
             res.status(200).json({message: 'EVENT INSERTED !', code: '200'});
