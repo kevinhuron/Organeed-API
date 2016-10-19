@@ -431,7 +431,7 @@ module.exports = function (app, passport) {
     app.get("/api/get/latLngEvents", loggedIn, function (req, res) {
         Event.myevents.findAll(
             {
-                attributes: ['id_event', 'title', 'lat', 'lng', 'id_manager'],
+                attributes: ['id_event', 'title', 'date_start', 'hour_start', 'date_end', 'hour_end', 'lat', 'lng', 'id_manager'],
                 where: {id_manager: req.user.id_user}
             }
         ).then(function (result) {
