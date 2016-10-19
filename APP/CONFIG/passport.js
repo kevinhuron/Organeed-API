@@ -33,13 +33,13 @@ module.exports = function (passport) {
                     } else {
                         /** save the user **/
                         User.myusers.create({
-                            "first_name":   req.query.first_name,
-                            "last_name":    req.query.last_name,
-                            "age":          (req.query.age) ? req.query.age : null,
+                            "first_name":   req.body.first_name,
+                            "last_name":    req.body.last_name,
+                            "age":          (req.body.age) ? req.body.age : null,
                             "email":        email,
                             "password":     User.mymethods.generateHash(password),
-                            "phone_number": (req.query.phone_number) ? req.query.phone_number : null,
-                            "img":          (req.query.img) ? req.query.img : null
+                            "phone_number": (req.query.phone_number) ? req.body.phone_number : null,
+                            "img":          (req.body.img) ? req.body.img : null
                         }).then(function (result) {
                             return done(null, result);
                         }).catch(function (e) { /** Erreur dans l'inscription user **/

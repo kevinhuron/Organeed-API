@@ -19,6 +19,12 @@ var mytags = sequelize.define('TAGS', {
         field: 'name',
         validate: {isAlphanumeric: true}
     },
+    color: {
+        type: sequelize.Sequelize.STRING,
+        allowNull: true,
+        field: 'color',
+        defaultValue: '#'+Math.floor(Math.random()*16777215).toString(16)
+    },
     id_user: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: true,

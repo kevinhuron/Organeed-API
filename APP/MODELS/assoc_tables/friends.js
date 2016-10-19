@@ -3,18 +3,20 @@
  */
 var mysql = require("mysql");
 
-var sequelize = require('../CONFIG/dbconnect').sequelize;
+var sequelize = require('../../CONFIG/dbconnect').sequelize;
 
 var myfriends = sequelize.define('FRIENDS', {
-    id_list: {
+    id_user: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,
-        field: 'id_list'
+        field: 'id_user',
+        primaryKey: true
     },
     id_friends: {
         type: sequelize.Sequelize.INTEGER,
         allowNull: false,
-        field: 'id_friends'
+        field: 'id_friends',
+        primaryKey: true
     }
 }, {
     freezeTableName: true,
