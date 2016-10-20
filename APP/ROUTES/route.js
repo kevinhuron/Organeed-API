@@ -472,6 +472,40 @@ module.exports = function (app, passport) {
             res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
         });
     });
+
+    /**
+     * UPDATE INFO USER BY ID
+     */
+    app.post("/api/update/userById", loggedIn, function (req, res) {
+        console.log(req.query);
+        console.log(req.body);
+        /*User.myusers.find({where: {email: email}}).then(function (user) {
+            if (user) {
+                console.log("EMAIL DEJA EXISTANT");
+                res.status(401).json({message:"Cette email est déjà utilisé."});
+            } else {
+                User.myusers.update(
+                    {
+                        last_name: 'foooo',
+                        first_name: 'baaaaaar',
+                        age: 'baaaaaar',
+                        email: 'baaaaaar',
+                        password: User.mymethods.generateHash(),
+                        phone_number: 'baaaaaar',
+                        img: 'baaaaaar'
+                    }
+                ).then(function (result) {
+                    res.status(200).json({"userInfo": result});
+                }).catch(function (e) {
+                    /** Erreur dans la récupération de l'update de l'user **
+                    console.log("ERROR : Lors de la récupération  de l'update de l'user = " + e);
+                    res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
+                });
+            }
+        }).catch(function (e) { /** Erreur dans la recherche de l'user **
+            console.log("ERROR : Lors de la recherche = " + e);
+        });*/
+    });
 };
 
 function loggedIn(req, res, next) {
