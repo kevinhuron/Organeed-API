@@ -484,7 +484,7 @@ module.exports = function (app, passport) {
                     res.status(401).json({message:"Cette email est déjà utilisé."});
                 } else {
                     User.myusers.update(
-                        {email: req.body.email}
+                        {email: req.body.email}, {where: {id_user: req.user.id_user}}
                     ).then(function (result) {
                         res.status(200).json({"userInfo": result});
                     }).catch(function (e) {
@@ -499,6 +499,7 @@ module.exports = function (app, passport) {
         } else {
             User.myusers.update(
                 (req.body.password) ? {password: User.mymethods.generateHash(req.body.password)} : req.body
+                , {where: {id_user: req.user.id_user}}
             ).then(function (result) {
                 res.status(200).json({"userInfo": result});
             }).catch(function (e) {
