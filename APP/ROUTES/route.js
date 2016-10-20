@@ -454,6 +454,24 @@ module.exports = function (app, passport) {
             res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
         });*/
     });
+
+    /**
+     * GET INFO USER BY ID
+     */
+    app.get("/api/get/userById", loggedIn, function (req, res) {
+        User.myusers.findAll(
+            {
+                attributes: ['id_user', 'last_name', 'first_name', 'age', 'email', 'phone_number', 'img'],
+                where: {id_user: req.user.id_user}
+            }
+        ).then(function (result) {
+            res.status(200).json({"userInfo": result});
+        }).catch(function (e) {
+            /** Erreur dans la récupération de l'user **/
+            console.log("ERROR : Lors de la récupération  de l'user = " + e);
+            res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
+        });
+    });
 };
 
 function loggedIn(req, res, next) {
