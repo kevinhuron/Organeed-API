@@ -168,8 +168,7 @@ module.exports = function (app, passport) {
      * GET COMMENTS
      */
     app.get("/api/get/comments", loggedIn, function (req, res) {
-        sequelize.query("SELECT * FROM COMMENTS LEFT JOIN TAGGER ON COMMENTS.id_comment = TAGGER.id_comment " +
-            "LEFT JOIN TAGS ON TAGS.id_tags = TAGGER.id_tags INNER JOIN USERS ON USERS.id_user = COMMENTS.author " +
+        sequelize.query("SELECT * FROM COMMENTS INNER JOIN USERS ON USERS.id_user = COMMENTS.author " +
             "WHERE id_event = :id_event",
             {replacements: {id_event: req.query.id_event}, type: sequelize.QueryTypes.SELECT}
         ).then(function (comments) {
