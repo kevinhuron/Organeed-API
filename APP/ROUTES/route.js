@@ -168,21 +168,10 @@ module.exports = function (app, passport) {
      * GET COMMENTS
      */
     app.get("/api/get/comments", loggedIn, function (req, res) {
-        /*sequelize.query("SELECT * FROM COMMENTS LEFT JOIN TAGGER ON COMMENTS.id_comment = TAGGER.id_comment " +
-         "LEFT JOIN TAGS ON TAGS.id_tags = TAGGER.id_tags WHERE id_event = :id_event" ,
-         { replacements: { id_event: req.query.id_event }, type: sequelize.QueryTypes.SELECT }
-         ).then(function(comments) {
-         res.status(200).json({"comments":comments,"user":req.user});
-         }).catch(function (e) { /** Erreur dans la récupération des comments *
-         console.log("ERROR : Lors de la récupération des comments = " + e);
-         res.status(400).json({ message: 'ERROR - Une erreur est survenue !' });
-         });*/
-
-        Comment.mycomments.findAll(
-            {
-                attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
-                where: {id_event: req.query.id_event}
-            }
+        sequelize.query("SELECT * FROM COMMENTS LEFT JOIN TAGGER ON COMMENTS.id_comment = TAGGER.id_comment " +
+            "LEFT JOIN TAGS ON TAGS.id_tags = TAGGER.id_tags INNER JOIN USERS ON USERS.id_user = COMMENTS.author " +
+            "WHERE id_event = :id_event",
+            {replacements: {id_event: req.query.id_event}, type: sequelize.QueryTypes.SELECT}
         ).then(function (comments) {
             res.status(200).json({"comments": comments, "user": req.user});
         }).catch(function (e) {
@@ -190,6 +179,19 @@ module.exports = function (app, passport) {
             console.log("ERROR : Lors de la récupération des comments = " + e);
             res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
         });
+
+        /*Comment.mycomments.findAll(
+         {
+         attributes: ['id_comment', 'author', 'content', 'date_comment', 'img', 'id_event', 'id_comment_1'],
+         where: {id_event: req.query.id_event}
+         }
+         ).then(function (comments) {
+         res.status(200).json({"comments": comments, "user": req.user});
+         }).catch(function (e) {
+         /** Erreur dans la récupération des comments **
+         console.log("ERROR : Lors de la récupération des comments = " + e);
+         res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
+         });*/
     });
 
     /**
@@ -243,17 +245,17 @@ module.exports = function (app, passport) {
             res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
         });
         /*Tagger.mytagger.findAll(
-            {
-                attributes: ['id_tags', 'id_comment'],
-                where: {id_comment: req.query.id_comment}
-            }
-        ).then(function (ids) {
-            res.status(200).json({"ids": ids, "user": req.user});
-        }).catch(function (e) {
-            /** Erreur dans la récupération des tags by id **
-            console.log("ERROR : Lors de la récupération des tags by id = " + e);
-            res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
-        });*/
+         {
+         attributes: ['id_tags', 'id_comment'],
+         where: {id_comment: req.query.id_comment}
+         }
+         ).then(function (ids) {
+         res.status(200).json({"ids": ids, "user": req.user});
+         }).catch(function (e) {
+         /** Erreur dans la récupération des tags by id **
+         console.log("ERROR : Lors de la récupération des tags by id = " + e);
+         res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
+         });*/
     });
 
     /**
@@ -442,17 +444,17 @@ module.exports = function (app, passport) {
             res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
         });
         /*sequelize.query(
-            "SELECT `COMMENTS`.`id_comment`, `COMMENTS`.`author`, `COMMENTS`.`content`, `COMMENTS`.`date_comment`, " +
-            "`COMMENTS`.`img`, `COMMENTS`.`id_event`, `COMMENTS`.`id_comment_1` " +
-            "FROM `COMMENTS` INNER JOIN `TAGGER` ON `COMMENTS`.`id_comment` = `TAGGER`.`id_comment` WHERE `TAGGER`.`id_tags` IN(:id_tag)",
-            {replacements: {id_tag: [req.query.id_tags]}, type: sequelize.QueryTypes.SELECT}        // TODO: Ids tags par rapport à l'app
-        ).then(function (comments) {                                                                     // TODO: A envoyé en tant que ARRAY (je pense)
-            res.status(200).json({"comments": comments});                                                // TODO: Vérifié la query exécutée
-        }).catch(function (e) {
-            /** Erreur dans la récupération des comments by tag **
-            console.log("ERROR : Lors de la récupération des comments by tag = " + e);
-            res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
-        });*/
+         "SELECT `COMMENTS`.`id_comment`, `COMMENTS`.`author`, `COMMENTS`.`content`, `COMMENTS`.`date_comment`, " +
+         "`COMMENTS`.`img`, `COMMENTS`.`id_event`, `COMMENTS`.`id_comment_1` " +
+         "FROM `COMMENTS` INNER JOIN `TAGGER` ON `COMMENTS`.`id_comment` = `TAGGER`.`id_comment` WHERE `TAGGER`.`id_tags` IN(:id_tag)",
+         {replacements: {id_tag: [req.query.id_tags]}, type: sequelize.QueryTypes.SELECT}        // TODO: Ids tags par rapport à l'app
+         ).then(function (comments) {                                                                     // TODO: A envoyé en tant que ARRAY (je pense)
+         res.status(200).json({"comments": comments});                                                // TODO: Vérifié la query exécutée
+         }).catch(function (e) {
+         /** Erreur dans la récupération des comments by tag **
+         console.log("ERROR : Lors de la récupération des comments by tag = " + e);
+         res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
+         });*/
     });
 
     /**
@@ -481,7 +483,7 @@ module.exports = function (app, passport) {
             User.myusers.find({where: {email: req.body.email}}).then(function (user) {
                 if (user) {
                     console.log("EMAIL DEJA EXISTANT");
-                    res.status(401).json({message:"Cette email est déjà utilisé."});
+                    res.status(401).json({message: "Cette email est déjà utilisé."});
                 } else {
                     User.myusers.update(
                         {email: req.body.email}, {where: {id_user: req.user.id_user}}
@@ -493,8 +495,9 @@ module.exports = function (app, passport) {
                         res.status(400).json({message: 'ERROR - Une erreur est survenue !'});
                     });
                 }
-            }).catch(function (e) { /** Erreur dans la recherche de l'user **/
-            console.log("ERROR : Lors de la recherche = " + e);
+            }).catch(function (e) {
+                /** Erreur dans la recherche de l'user **/
+                console.log("ERROR : Lors de la recherche = " + e);
             });
         } else {
             User.myusers.update(
